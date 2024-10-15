@@ -1,0 +1,91 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+client/node_modules/
+server/node_modules/
+nginx/node_modules/
+
+# Docker
+docker-compose.override.yml
+docker-compose*.log
+docker-compose*.bak
+**/Dockerfile*
+/postgres_data/
+pgadmin_data/
+
+# PostgreSQL
+pgadmin_data/
+postgres_data/
+
+# Build artifacts and caches
+/dist
+/client/dist
+/server/dist
+
+# Yarn
+.yarn/*
+.pnp.*
+.yarnrc.yml
+
+# Vite cache and build output
+/.vite
+/client/.vite
+/client/.vite_cache
+/client/build
+
+# Env files
+.env
+client/.env
+server/.env
+nginx/.env
+
+# Lock files (depending on your preference)
+package-lock.json
+yarn.lock
+
+# npm logs
+npm-debug.log*
+
+# MacOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Linux files
+*~
+
+# Temporary files
+*.tmp
+*.swp
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

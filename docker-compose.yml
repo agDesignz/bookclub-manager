@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: "postgres:16.4"
+    environment:
+      - POSTGRES_PASSWORD=password123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # - ./server/db/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+      # - ./server/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: bob@bob.com
+      PGADMIN_DEFAULT_PASSWORD: bob321
+    ports:
+      - "8080:80" # Exposes pgAdmin on http://localhost:8080
+    depends_on:
+      - postgres
+
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "3050:80" # Access to our app at http://localhost:3050
+    depends_on:
+      - api
+      - client
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    env_file:
+      - ./server/.env
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    environment:
+      - WDS_SOCKET_PORT=0
+
+volumes:
+  postgres_data:
