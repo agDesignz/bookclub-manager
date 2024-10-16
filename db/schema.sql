@@ -1,0 +1,13 @@
+DROP DATABASE IF EXISTS bookclub;
+CREATE DATABASE bookclub;
+
+\c bookclub
+
+CREATE TABLE IF NOT EXISTS "user" (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL UNIQUE,
+    last_name VARCHAR(50) NOT NULL UNIQUE,
+    user_name VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password BYTEA NOT NULL
+);
