@@ -6,8 +6,7 @@ services:
       - POSTGRES_USER=postgres
     volumes:
       - bookclub_data:/var/lib/postgresql/data
-      - ./db:/docker-entrypoint-initdb.d # Mount the db folder to initialize the schema
-    # command: ["bash", "/docker-entrypoint-initdb.d/init-db.sh"]
+      - ./server/db:/docker-entrypoint-initdb.d # Mount the db folder to initialize the schema
     ports:
       - 5432:5432
     restart: unless-stopped

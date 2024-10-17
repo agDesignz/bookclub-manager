@@ -2,10 +2,11 @@ const express = require("express");
 const path = require('path');
 const routes = require('./routes');
 
-const { port } = require("./config");
+const { port } = require("./config/env");
 
 const PORT = port || 4000
 const app = express();
+app.use(routes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, "..", 'client/dist')));

@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS bookclub;
+CREATE DATABASE bookclub;
