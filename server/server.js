@@ -1,11 +1,17 @@
 const express = require("express");
 const path = require('path');
+const cookieParser = require("cookie-parser");
 const routes = require('./routes');
 
 const { port } = require("./config/env");
 
 const PORT = port || 4000
 const app = express();
+
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(routes);
 
 if (process.env.NODE_ENV === 'production') {

@@ -11,7 +11,7 @@ const SignupForm = () => {
   const submitSignup = async (e) => {
     e.preventDefault();
     try {
-      const query = await fetch("http://api:4000/api/user", {
+      const query = await fetch("/api/user", {
         method: "POST",
         body: JSON.stringify(signupData),
         headers: {

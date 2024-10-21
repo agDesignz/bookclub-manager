@@ -10,9 +10,9 @@ export default defineConfig({
     open: true,  // Opens automatically
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3050',  // Nginx is running on port 3050
         changeOrigin: true,
-        // secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
     }
   }
