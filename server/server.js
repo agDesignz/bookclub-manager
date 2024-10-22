@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path');
 const cookieParser = require("cookie-parser");
 const routes = require('./routes');
+const sequelize = require('./config/connection');
 
 const { port } = require("./config/env");
 
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.listen(PORT, () => {
-  console.log(`Server is up and listening on port ${PORT}.`);
-});
+sequelize.sync({ force: false })
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server is up and listening on port ${PORT}.`));
+  });

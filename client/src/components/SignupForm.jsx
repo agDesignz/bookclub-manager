@@ -22,8 +22,6 @@ const SignupForm = () => {
     } catch (error) {
       console.log(error);
     }
-    const result = await query.json();
-    console.log(result);
   };
 
   return (
@@ -33,12 +31,23 @@ const SignupForm = () => {
         onSubmit={submitSignup}
       >
         <h2>Register</h2>
-        <label hidden htmlFor="userName">
+        <label hidden htmlFor="email">
+          Email
+        </label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
+          onChange={handleSignupChange}
+        />
+        <label hidden htmlFor="username">
           Username
         </label>
         <input
           type="text"
-          name="userName"
+          name="username"
+          placeholder="Username"
           className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
           onChange={handleSignupChange}
         />
@@ -48,6 +57,7 @@ const SignupForm = () => {
         <input
           type="password"
           name="pass1"
+          placeholder="Enter Password"
           className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
           onChange={handleSignupChange}
         />
@@ -57,6 +67,7 @@ const SignupForm = () => {
         <input
           type="password"
           name="pass2"
+          placeholder="Re-enter Password"
           className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
           onChange={handleSignupChange}
         />
