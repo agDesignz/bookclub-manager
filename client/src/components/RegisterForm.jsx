@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const SignupForm = () => {
+const RegisterForm = () => {
   const [signupData, setSignupData] = useState({});
+  const navigate = useNavigate();
 
   function handleSignupChange(e) {
     // updateFormMessage();
@@ -10,17 +12,31 @@ const SignupForm = () => {
 
   const submitSignup = async (e) => {
     e.preventDefault();
-    try {
-      const query = await fetch("/api/user", {
-        method: "POST",
-        body: JSON.stringify(signupData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(query);
-    } catch (error) {
-      console.log(error);
+    const { username, email, password, confirmPassword } = signupData;
+    if (password !== confirmPassword) {
+      console.log("Passwords don't match");
+      return;
+    } else {
+      try {
+        const query = await fetch("/api/user", {
+          method: "POST",
+          body: JSON.stringify({
+            email,
+            username,
+            password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await query.json();
+        console.log("result:", result);
+        result.status === "error"
+          ? console.log("result error:", result)
+          : navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -51,23 +67,23 @@ const SignupForm = () => {
           className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
           onChange={handleSignupChange}
         />
-        <label hidden htmlFor="pass1">
+        <label hidden htmlFor="password">
           Password
         </label>
         <input
           type="password"
-          name="pass1"
+          name="password"
           placeholder="Enter Password"
           className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
           onChange={handleSignupChange}
         />
-        <label hidden htmlFor="pass2">
+        <label hidden htmlFor="confirmPassword">
           Password
         </label>
         <input
           type="password"
-          name="pass2"
-          placeholder="Re-enter Password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
           className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
           onChange={handleSignupChange}
         />
@@ -76,4 +92,4 @@ const SignupForm = () => {
     </>
   );
 };
-export default SignupForm;
+export default RegisterForm;

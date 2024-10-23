@@ -7,38 +7,33 @@ const generateToken = require('../utils/generateToken');
 // @route POST /api/user
 // @access Public
 const userRegister = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  const { email, username, pass1, pass2 } = req.body;
-  // const userExists = await User.findOne({where: { userName }});
-  if (pass1 != pass2) {
-    res.status(400);
-    throw new Error('Passwords do not match');
-  }
+  console.log("req.body:", req.body);
+  const { email, username, password } = req.body;
 
   const [user, created] = await User.findOrCreate({
     where: { email: email },
     defaults: {
-      email, username, password: pass1
+      email, username, password: password
     }
   });
 
-  console.log(user.username, user.email, user.id);
-  if (created) {
-    console.log(user)
+  if (!created) {
+    res.status(400);
+    throw new Error('User already exists');
   }
 
-  // if (user) {
-  //   generateToken(res, user._id)
-  //   res.status(201).json({
-  //     id: user.id,
-  //     username: user.username,
-  //     email: user.email,
-  //     isAdmin: user.isAdmin
-  //   });
-  // } else {
-  //   res.status(400);
-  //   throw new Error('Invalid user data');
-  // }
+  if (user) {
+    generateToken(res, user.id)
+    res.status(201).json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
 });
 
 const userLogin = asyncHandler(async (req, res) => {
@@ -60,7 +55,19 @@ const userLogin = asyncHandler(async (req, res) => {
   // }
 });
 
+// @desc log out User / clear cookie
+// @route POST /api/users/logout
+// @access Public
+const logoutUser = asyncHandler(async (req, res) => {
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0)
+  });
+  res.status(200).json({ message: 'Logged out successfully' });
+});
+
 module.exports = {
   userLogin,
-  userRegister
+  userRegister,
+  logoutUser
 };

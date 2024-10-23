@@ -8,12 +8,12 @@ import {
 } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
-import Landing from "./screens/Landing.jsx";
+import Home from "./screens/Home.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<Landing />} />
+      <Route index={true} path="/" element={<Home />} />
     </Route>
   )
 );
