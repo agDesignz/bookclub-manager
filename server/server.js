@@ -1,13 +1,28 @@
 const express = require("express");
 const path = require('path');
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const routes = require('./routes');
 const sequelize = require('./config/connection');
+require('dotenv').config();
+
 
 const { port } = require("./config/env");
 
 const PORT = port || 4000
 const app = express();
+
+// Add CORS middleware here
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Your frontend URL
+  credentials: true, // Ensure cookies are sent with requests
+}));
+
+// Allow credentials in headers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

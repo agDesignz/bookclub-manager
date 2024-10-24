@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react";
 import Dashboard from "../components/Dashboard";
 import Landing from "../components/Landing";
-import useVerifyUser from "../hooks/useVerifyUser";
+import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
-  const { isLoggedIn } = useVerifyUser();
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    console.log(isLoggedIn);
+    console.log("auth isLoggedIn:", isLoggedIn);
   }, []);
-
   return (
     <div className="grow flex flex-col justify-center items-center">
-      {loggedIn ? <Dashboard /> : <Landing />}
+      {isLoggedIn ? <Dashboard /> : <Landing />}
     </div>
   );
 };

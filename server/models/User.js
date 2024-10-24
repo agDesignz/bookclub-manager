@@ -29,7 +29,7 @@ User.init(
       },
     },
     password: {
-      type: DataTypes.BLOB, // To store bcrypt-hashed passwords
+      type: DataTypes.STRING, // To store bcrypt-hashed passwords
       allowNull: false,
     },
     isAdmin: {
