@@ -40,6 +40,8 @@ services:
       - ./server:/app
     env_file:
       - ./server/.env
+    depends_on:
+      - postgres
   client:
     build:
       dockerfile: Dockerfile.dev

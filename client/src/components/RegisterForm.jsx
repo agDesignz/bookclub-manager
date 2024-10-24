@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-const RegisterForm = () => {
+const RegisterForm = ({ currentLocation }) => {
   const [signupData, setSignupData] = useState({});
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function handleSignupChange(e) {
     // updateFormMessage();
@@ -31,9 +31,9 @@ const RegisterForm = () => {
         });
         const result = await query.json();
         console.log("result:", result);
-        result.status === "error"
-          ? console.log("result error:", result)
-          : navigate("/");
+        // result.status === "error"
+        //   ? console.log("result error:", result)
+        //   : navigate(currentLocation, { state: { refresh: true } });
       } catch (error) {
         console.log(error);
       }

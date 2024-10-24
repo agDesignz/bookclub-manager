@@ -12,7 +12,7 @@ const Header = () => {
     const result = await remove.json();
     console.log(result);
     if (result?.status === "success") {
-      navigate("/");
+      // navigate("/", { state: { refresh: true } });
     }
   };
   return (

@@ -1,7 +1,5 @@
 // AuthContext.js
 import { createContext, useState, useEffect, useContext } from "react";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 

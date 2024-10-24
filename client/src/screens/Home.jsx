@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Dashboard from "../components/Dashboard";
 import Landing from "../components/Landing";
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     console.log("auth isLoggedIn:", isLoggedIn);
-  }, []);
+  }, [isLoggedIn]);
   return (
     <div className="grow flex flex-col justify-center items-center">
       {isLoggedIn ? <Dashboard /> : <Landing />}

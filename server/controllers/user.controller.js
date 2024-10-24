@@ -39,21 +39,18 @@ const userRegister = asyncHandler(async (req, res) => {
 const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email } });
-  const pasMatch = await user.matchPassword(password);
-  console.log(pasMatch);
-
-  // if (user && (await user.matchPassword(password))) {
-  //   generateToken(res, user.id);
-  //   res.status(200).json({
-  //     id: user.id,
-  //     name: user.name,
-  //     email: user.email,
-  //     isAdmin: user.isAdmin,
-  //   });
-  // } else {
-  //   res.status(401);
-  //   throw new Error('Invalid email or password');
-  // }
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user.id);
+    res.status(200).json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
 });
 
 // @desc log out User / clear cookie

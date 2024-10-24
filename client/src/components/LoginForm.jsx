@@ -1,7 +1,9 @@
 import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ currentLocation }) => {
   const [loginData, setLoginData] = useState({});
+  // const navigate = useNavigate();
 
   const handleLoginChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -20,7 +22,8 @@ const LoginForm = () => {
         },
       });
       const result = await query.json();
-      console.log(result);
+      console.log("You Are Here:", currentLocation);
+      // navigate(currentLocation, { state: { refresh: true } });
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +31,6 @@ const LoginForm = () => {
 
   return (
     <form className="flex flex-col gap-4 items-center" onSubmit={submitLogin}>
-      <h2>Register</h2>
       <label hidden htmlFor="email">
         Email
       </label>
