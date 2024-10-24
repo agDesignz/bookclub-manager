@@ -1,9 +1,9 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const RegisterForm = ({ currentLocation }) => {
+const RegisterForm = () => {
   const [signupData, setSignupData] = useState({});
-  // const navigate = useNavigate();
+  const { postAuthData } = useAuth();
 
   function handleSignupChange(e) {
     // updateFormMessage();
@@ -12,31 +12,12 @@ const RegisterForm = ({ currentLocation }) => {
 
   const submitSignup = async (e) => {
     e.preventDefault();
-    const { username, email, password, confirmPassword } = signupData;
+    const { password, confirmPassword } = signupData;
     if (password !== confirmPassword) {
       console.log("Passwords don't match");
       return;
     } else {
-      try {
-        const query = await fetch("/api/user", {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-            username,
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const result = await query.json();
-        console.log("result:", result);
-        // result.status === "error"
-        //   ? console.log("result error:", result)
-        //   : navigate(currentLocation, { state: { refresh: true } });
-      } catch (error) {
-        console.log(error);
-      }
+      postAuthData("/api/user", signupData);
     }
   };
 

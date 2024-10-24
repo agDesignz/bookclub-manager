@@ -6,6 +6,39 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const postAuthData = async (path, data) => {
+    try {
+      const query = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("auth query:", query);
+      const result = await query.json();
+      setIsLoggedIn(true);
+      console.log("postAuth result:", result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logoutHandler = async () => {
+    try {
+      const remove = await fetch("/api/user/logout", {
+        method: "POST",
+        body: "",
+        headers: { "Content-Type": "application/json" },
+      });
+      const result = await remove.json();
+      console.log("logout result:", result);
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const checkLoginStatus = async () => {
     try {
       const response = await fetch("/api/user/auth", {
@@ -32,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, logoutHandler, postAuthData }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,9 +1,9 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const LoginForm = ({ currentLocation }) => {
+const LoginForm = () => {
   const [loginData, setLoginData] = useState({});
-  // const navigate = useNavigate();
+  const { postAuthData } = useAuth();
 
   const handleLoginChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -11,22 +11,7 @@ const LoginForm = ({ currentLocation }) => {
 
   const submitLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = loginData;
-
-    try {
-      const query = await fetch("/api/user/login", {
-        method: "POST",
-        body: JSON.stringify(loginData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await query.json();
-      console.log("You Are Here:", currentLocation);
-      // navigate(currentLocation, { state: { refresh: true } });
-    } catch (error) {
-      console.log(error);
-    }
+    postAuthData("/api/user/login", loginData);
   };
 
   return (

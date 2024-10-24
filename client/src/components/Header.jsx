@@ -1,20 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { logoutHandler } = useAuth();
 
-  const logoutHandler = async () => {
-    const remove = await fetch("/api/user/logout", {
-      method: "POST",
-      body: "",
-      headers: { "Content-Type": "application/json" },
-    });
-    const result = await remove.json();
-    console.log(result);
-    if (result?.status === "success") {
-      // navigate("/", { state: { refresh: true } });
-    }
-  };
   return (
     <div>
       Header
