@@ -6,9 +6,6 @@ import { useAuth } from "../context/AuthContext";
 const Home = () => {
   const { isLoggedIn } = useAuth();
 
-  useEffect(() => {
-    // console.log("auth isLoggedIn:", isLoggedIn);
-  }, [isLoggedIn]);
   return (
     <div className="grow flex flex-col justify-center items-center">
       {isLoggedIn ? <Dashboard /> : <Landing />}
