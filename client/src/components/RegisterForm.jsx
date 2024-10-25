@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import Alert from "./Alert";
 
 const RegisterForm = () => {
   const [signupData, setSignupData] = useState({});
+  const [alertMsg, setAlertMsg] = useState("");
   const { postAuthData } = useAuth();
 
   function handleSignupChange(e) {
@@ -17,7 +19,10 @@ const RegisterForm = () => {
       console.log("Passwords don't match");
       return;
     } else {
-      postAuthData("/api/user", signupData);
+      const result = await postAuthData("/api/user", signupData);
+      setSignupData({});
+      !result.ok &&
+        setAlertMsg("There was an error signing you up. Please try again.");
     }
   };
 
@@ -34,8 +39,9 @@ const RegisterForm = () => {
         <input
           type="email"
           name="email"
+          value={signupData?.email || ""}
           placeholder="Email"
-          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
+          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
           onChange={handleSignupChange}
         />
         <label hidden htmlFor="username">
@@ -44,8 +50,9 @@ const RegisterForm = () => {
         <input
           type="text"
           name="username"
+          value={signupData?.username || ""}
           placeholder="Username"
-          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
+          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
           onChange={handleSignupChange}
         />
         <label hidden htmlFor="password">
@@ -54,8 +61,9 @@ const RegisterForm = () => {
         <input
           type="password"
           name="password"
+          value={signupData?.password || ""}
           placeholder="Enter Password"
-          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
+          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
           onChange={handleSignupChange}
         />
         <label hidden htmlFor="confirmPassword">
@@ -64,11 +72,15 @@ const RegisterForm = () => {
         <input
           type="password"
           name="confirmPassword"
+          value={signupData?.confirmPassword || ""}
           placeholder="Confirm Password"
-          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white"
+          className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
           onChange={handleSignupChange}
         />
-        <button type="submit">Create Account</button>
+        <button className="btn btn-wide btn-ghost" type="submit">
+          Create Account
+        </button>
+        <Alert content={alertMsg} />
       </form>
     </>
   );

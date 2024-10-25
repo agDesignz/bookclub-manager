@@ -7,7 +7,7 @@ const Home = () => {
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    console.log("auth isLoggedIn:", isLoggedIn);
+    // console.log("auth isLoggedIn:", isLoggedIn);
   }, [isLoggedIn]);
   return (
     <div className="grow flex flex-col justify-center items-center">

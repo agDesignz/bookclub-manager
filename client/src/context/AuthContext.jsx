@@ -15,12 +15,12 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
       });
-      console.log("auth query:", query);
-      const result = await query.json();
-      setIsLoggedIn(true);
-      console.log("postAuth result:", result);
+      console.log("auth query:", query.ok);
+      query.ok && setIsLoggedIn(true);
+      return query;
     } catch (error) {
       console.log(error);
+      return error;
     }
   };
 
@@ -46,10 +46,10 @@ export const AuthProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
         credentials: "include", // Make sure cookies are sent with the request
       });
-      console.log("auth:", response);
+      // console.log("auth:", response);
       if (response.ok) {
         const userData = await response.json();
-        console.log("User is authenticated:", userData);
+        // console.log("User is authenticated:", userData);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
