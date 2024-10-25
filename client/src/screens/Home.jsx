@@ -7,7 +7,7 @@ const Home = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div className="grow flex flex-col justify-center items-center">
+    <div className="grow flex flex-col items-center">
       {isLoggedIn ? <Dashboard /> : <Landing />}
     </div>
   );
