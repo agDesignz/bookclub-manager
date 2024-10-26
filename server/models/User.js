@@ -56,9 +56,4 @@ User.init(
   modelName: 'user'
 });
 
-// Add custom method for comparing passwords
-// User.prototype.matchPassword = async function (enteredPassword) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// };
-
 module.exports = User;
