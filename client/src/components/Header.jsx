@@ -46,6 +46,9 @@ const Header = () => {
               </a>
             </li>*/}
                 <li>
+                  <Link to="/profile">My Profile</Link>
+                </li>
+                <li className="mt-4">
                   <button onClick={logoutHandler}>Log out</button>
                 </li>
               </ul>

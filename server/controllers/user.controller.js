@@ -56,18 +56,7 @@ const userLogin = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc log out User / clear cookie
-// @route POST /api/user/logout
-// @access Public
-const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', {
-    httpOnly: true,
-    expires: new Date(0)
-  });
-  res.status(200).json({ message: 'Logged out successfully' });
-});
-
-// @desc check Auth cookie
+// @desc Check user Auth Status
 // @route GET /api/user/auth
 // @access Public
 const authCheck = asyncHandler(async (req, res) => {
@@ -80,7 +69,7 @@ const authCheck = asyncHandler(async (req, res) => {
       if (!user) {
         res.status(401).json({ message: "Unauthorized: User not found" });
       } else {
-        res.status(200).json({ id: user.id, username: user.username });
+        res.status(200).json({ id: user.id, username: user.username, email: user.email, isAdmin: user.isAdmin });
       }
     } catch (err) {
       res.status(401).json({ message: "Unauthorized: Invalid token" });
@@ -90,9 +79,110 @@ const authCheck = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc log out User / clear cookie
+// @route POST /api/user/logout
+// @access Public
+const logoutUser = asyncHandler(async (req, res) => {
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0)
+  });
+  res.status(200).json({ message: 'Logged out successfully' });
+});
+
+// @desc Get user profile
+// @route GET /api/user/profile
+// @access Private
+const getUserProfile = asyncHandler(async (req, res) => {
+  // Get user profile
+});
+
+// @desc Update user profile
+// @route PUT /api/user/profile
+// @access Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+  // update the user
+});
+
+/////////////////////////
+// ADMIN API FUNCTIONS //
+/////////////////////////
+
+// @desc Get All Users
+// @route GET /api/allusers
+// @access Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+  // const users = await User.find({});
+  // res.status(200).json(users);
+});
+
+// @desc Get user by id
+// @route GET /api/users/:id
+// @access Private/Admin
+const getUserById = asyncHandler(async (req, res) => {
+  // const user = await User.findById(req.params.id).select('-password');
+
+  // if (user) {
+  //   res.json(user);
+  // } else {
+  //   res.status(404);
+  //   throw new Error('User not found');
+  // }
+});
+
+// @desc Delete User
+// @route DELETE /api/user/:id
+// @access Private/Admin
+const deleteUser = asyncHandler(async (req, res) => {
+  // const user = await User.findById(req.params.id);
+
+  // if (user) {
+  //   if (user.isAdmin) {
+  //     res.status(400);
+  //     throw new Error('Can not delete admin user');
+  //   }
+  //   await User.deleteOne({ _id: user._id });
+  //   res.json({ message: 'User removed' });
+  // } else {
+  //   res.status(404);
+  //   throw new Error('User not found');
+  // }
+});
+
+// @desc Update User (Admin)
+// @route PUT /api/user/:id
+// @access Private/Admin
+const updateUser = asyncHandler(async (req, res) => {
+  // const user = await User.findById(req.params.id);
+
+  // if (user) {
+  //   user.name = req.body.name || user.name;
+  //   user.email = req.body.email || user.email;
+  //   user.isAdmin = Boolean(req.body.isAdmin);
+
+  //   const updatedUser = await user.save();
+
+  //   res.json({
+  //     _id: updatedUser._id,
+  //     name: updatedUser.name,
+  //     email: updatedUser.email,
+  //     isAdmin: updatedUser.isAdmin,
+  //   });
+  // } else {
+  //   res.status(404);
+  //   throw new Error('User not found');
+  // }
+});
+
 module.exports = {
   userLogin,
   userRegister,
   logoutUser,
-  authCheck
+  authCheck,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  getUserById,
+  deleteUser,
+  updateUser
 };

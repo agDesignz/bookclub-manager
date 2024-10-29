@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({});
 
   const postAuthData = async (path, data) => {
     try {
@@ -46,10 +47,10 @@ export const AuthProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
         credentials: "include", // Make sure cookies are sent with the request
       });
-      // console.log("auth:", response);
       if (response.ok) {
-        const userData = await response.json();
-        // console.log("User is authenticated:", userData);
+        const data = await response.json();
+        // console.log("data:", data);
+        setUserData(data);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -64,8 +65,17 @@ export const AuthProvider = ({ children }) => {
     checkLoginStatus();
   }, []);
 
+  // To log the updated `userData` after it changes
+  useEffect(() => {
+    if (Object.keys(userData).length > 0) {
+      // console.log("userData has been updated:", userData);
+    }
+  }, [userData]);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, logoutHandler, postAuthData }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, userData, logoutHandler, postAuthData }}
+    >
       {children}
     </AuthContext.Provider>
   );

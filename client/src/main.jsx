@@ -10,11 +10,17 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import App from "./App.jsx";
 import "./index.css";
 import Home from "./screens/Home.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import ProfileScreen from "./screens/ProfileScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Home />} />
+
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/profile" element={<ProfileScreen />} />
+      </Route>
     </Route>
   )
 );

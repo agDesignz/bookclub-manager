@@ -14,6 +14,9 @@ GroupStatus.init(
     meet_date: {
       type: DataTypes.DATE,
     },
+    time: {
+      type: DataTypes.TIME
+    },
     location: {
       type: DataTypes.STRING(150)
     },
