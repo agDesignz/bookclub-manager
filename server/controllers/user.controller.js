@@ -101,7 +101,32 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route PUT /api/user/profile
 // @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  // update the user
+  const user = await User.findByPk(req.user.id);  // Use findByPk for Sequelize
+
+  if (user) {
+    // Update user details, using the provided data or keep existing values
+    user.username = req.body.username || user.username;  // Renamed from 'name' to 'username'
+    user.email = req.body.email || user.email;
+
+    // Update password if provided
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    // Save the updated user
+    const updatedUser = await user.save();
+
+    // Respond with updated user details
+    res.status(200).json({
+      id: updatedUser.id,      // Sequelize uses 'id' instead of '_id'
+      username: updatedUser.username,  // Renamed field
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  } else {
+    res.status(400);
+    throw new Error('User not found');
+  }
 });
 
 /////////////////////////

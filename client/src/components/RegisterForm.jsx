@@ -5,12 +5,12 @@ import Alert from "./Alert";
 const RegisterForm = () => {
   const [signupData, setSignupData] = useState({});
   const [alertMsg, setAlertMsg] = useState("");
-  const { postAuthData } = useAuth();
+  const { handleUserApi } = useAuth();
 
-  function handleSignupChange(e) {
+  const handleSignupChange = (e) => {
     // updateFormMessage();
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
-  }
+  };
 
   const submitSignup = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const RegisterForm = () => {
       console.log("Passwords don't match");
       return;
     } else {
-      const result = await postAuthData("/api/user", signupData);
+      const result = await handleUserApi("POST", "/api/user", signupData);
       setSignupData({});
       !result.ok &&
         setAlertMsg("There was an error signing you up. Please try again.");

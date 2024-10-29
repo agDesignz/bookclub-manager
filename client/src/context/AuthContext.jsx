@@ -6,18 +6,24 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true); // Add a loading state
 
-  const postAuthData = async (path, data) => {
+  const handleUserApi = async (req, path, data) => {
     try {
       const query = await fetch(path, {
-        method: "POST",
+        method: req,
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
       console.log("auth query:", query.ok);
-      query.ok && setIsLoggedIn(true);
+      if (query.ok) {
+        const updatedData = await query.json(); // Get the updated user data from the response
+        setUserData(updatedData); // Update userData in the context
+        setIsLoggedIn(true); // Ensure the user is still logged in
+      }
       return query;
     } catch (error) {
       console.log(error);
@@ -35,6 +41,8 @@ export const AuthProvider = ({ children }) => {
       const result = await remove.json();
       console.log("logout result:", result);
       setIsLoggedIn(false);
+      // setLoading(true);
+      setUserData({});
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +66,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log("Error checking login status:", error);
       setIsLoggedIn(false);
+    } finally {
+      setLoading(false); // Set loading to false once the check is complete
     }
   };
 
@@ -74,7 +84,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, userData, logoutHandler, postAuthData }}
+      value={{ isLoggedIn, userData, loading, logoutHandler, handleUserApi }}
     >
       {children}
     </AuthContext.Provider>

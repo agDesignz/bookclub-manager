@@ -5,7 +5,7 @@ import Alert from "./Alert";
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({});
   const [alertMsg, setAlertMsg] = useState("");
-  const { postAuthData } = useAuth();
+  const { handleUserApi } = useAuth();
 
   const handleLoginChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   const submitLogin = async (e) => {
     e.preventDefault();
-    const result = await postAuthData("/api/user/login", loginData);
+    const result = await handleUserApi("POST", "/api/user/login", loginData);
     setLoginData({});
     !result.ok && setAlertMsg("Invalid email or password.");
   };

@@ -17,10 +17,10 @@ const { protect, admin } = require('../../middleware/authMiddleware');
 
 router.get('/auth', authCheck);
 router.post('/', userRegister);
+router.put('/', protect, updateUserProfile);
 router.post('/login', userLogin);
 router.post('/logout', logoutUser);
-router.get('/profule', getUserProfile);
-router.put('/profile', updateUserProfile);
+router.get('/profile', getUserProfile);
 
 router.get('/allusers', protect, admin, getUsers);
 router.get('/:id', protect, admin, getUserById);

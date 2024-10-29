@@ -12,7 +12,9 @@ const protect = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.userId).select('-password');
+      req.user = await User.findByPk(decoded.userId, {
+        attributes: { exclude: ['password'] }  // Exclude the 'password' field
+      });
       next();
     } catch (error) {
       console.log(error)

@@ -2,10 +2,14 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const PrivateRoute = () => {
-  const { isLoggedIn, userData } = useAuth();
+  const { isLoggedIn, loading } = useAuth();
 
-  // Protect the route based on the `isLoggedIn` status
-  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+  if (loading) {
+    // You could show a loading spinner or a placeholder while the check is in progress
+    return <div>Loading...</div>;
+  }
+
+  return isLoggedIn ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PrivateRoute;
