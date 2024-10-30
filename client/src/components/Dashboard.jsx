@@ -1,16 +1,18 @@
+import { Link } from "react-router-dom";
+
 const Dashboard = () => {
   return (
     <section className="dashboard container">
       <div className="flex flex-col gap-4 items-center">
-        <div className="card bg-primary text-primary-content w-96">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn">Buy Now</button>
+        <Link to="/search">
+          <div className="card bg-primary text-primary-content w-96">
+            <div className="card-body">
+              <h2 className="card-title">Book Search</h2>
+              <p>Placeholder for a book search option</p>
             </div>
           </div>
-        </div>
+        </Link>
+
         <div className="card bg-primary text-primary-content w-96">
           <div className="card-body">
             <h2 className="card-title">Card title!</h2>
