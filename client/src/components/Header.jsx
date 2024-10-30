@@ -5,6 +5,14 @@ const Header = () => {
   const { isLoggedIn } = useAuth();
   const { logoutHandler } = useAuth();
 
+  // Close dropdown on click, thanks to Malik Hamza: https://medium.com/@malikhamzav/how-to-close-daisyui-dropdown-on-click-ea65c5749410
+  const handleClick = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+  };
+
   return (
     <header>
       <div className="navbar bg-transparent">
@@ -18,7 +26,7 @@ const Header = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle avatar"
+              className="btn btn-ghost btn-circle"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,10 +53,13 @@ const Header = () => {
                 <span className="badge">New</span>
               </a>
             </li>*/}
-                <li>
+                <li onClick={handleClick}>
+                  <Link to="/">Dashboard</Link>
+                </li>
+                <li onClick={handleClick}>
                   <Link to="/profile">My Profile</Link>
                 </li>
-                <li className="mt-4">
+                <li className="mt-4" onClick={handleClick}>
                   <button onClick={logoutHandler}>Log out</button>
                 </li>
               </ul>

@@ -22,7 +22,7 @@ router.post('/login', userLogin);
 router.post('/logout', logoutUser);
 router.get('/profile', getUserProfile);
 
-router.get('/allusers', protect, admin, getUsers);
+router.get('/users', protect, admin, getUsers);
 router.get('/:id', protect, admin, getUserById);
 router.delete('/:id', protect, admin, deleteUser);
 router.put('/:id', protect, admin, updateUser);

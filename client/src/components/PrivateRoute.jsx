@@ -5,7 +5,6 @@ const PrivateRoute = () => {
   const { isLoggedIn, loading } = useAuth();
 
   if (loading) {
-    // You could show a loading spinner or a placeholder while the check is in progress
     return <div>Loading...</div>;
   }
 

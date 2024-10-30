@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     if (Object.keys(userData).length > 0) {
-      console.log("Home userData:", userData.isAdmin);
+      console.log("Home userData:", userData);
     }
   }, [userData]); // This will run whenever userData changes
   return (

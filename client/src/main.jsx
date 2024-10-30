@@ -10,8 +10,10 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import App from "./App.jsx";
 import "./index.css";
 import Home from "./screens/Home.jsx";
-import PrivateRoute from "./components/PrivateRoute.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
+import AdminScreen from "./screens/AdminScreen.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +22,10 @@ const router = createBrowserRouter(
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
+      </Route>
+
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin" element={<AdminScreen />} />
       </Route>
     </Route>
   )
