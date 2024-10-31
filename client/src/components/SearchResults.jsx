@@ -5,7 +5,9 @@ const SearchResults = ({ searchResults, getBook, handlePageChange, page }) => {
         <button
           className="btn-outline px-5 py-2 border rounded-lg"
           key={idx}
-          onClick={() => getBook(idx)}
+          onClick={() =>
+            getBook(idx, book.title, book.author_name, book.cover_i)
+          }
         >
           <h2 className="text-xl">{book.title}</h2>
           {book.author_name &&

@@ -35,7 +35,8 @@ const BookSearch = () => {
     setLoading(false);
   };
 
-  const getBook = (idx) => console.log(`Got book ${idx}`);
+  const getBook = (idx, bookTitle, bookAuthor, bookCover) =>
+    console.log(`Got book ${idx}, ${bookTitle}, by ${bookAuthor}`);
 
   useEffect(() => {
     scrollToTop();
