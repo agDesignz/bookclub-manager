@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import scrollToTop from "../utils/ScrollTop";
 import fetchBookData from "../api/fetchBookData";
+import SearchResults from "../components/SearchResults";
 
 const BookSearch = () => {
   const [title, setTitle] = useState("");
@@ -34,6 +35,8 @@ const BookSearch = () => {
     setLoading(false);
   };
 
+  const getBook = (idx) => console.log(`Got book ${idx}`);
+
   useEffect(() => {
     scrollToTop();
   }, [page]);
@@ -41,13 +44,13 @@ const BookSearch = () => {
   return (
     <div className="flex py-12 justify-center grow h-full">
       <div className="container px-6 md:px-12 xl:px-40">
-        <div className="flex gap-16">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-16">
           <div className="flex flex-col gap-8 basis-full">
-            <form className="mb-10 flex flex-col gap-4 text-gray-800">
+            <form className="flex flex-col gap-4 text-gray-800">
               <input
                 type="text"
                 placeholder="Search by Title"
-                name="searchInput"
+                name="titleInput"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="block text-xl px-5 py-2 border rounded-lg bg-white shadow-lg placeholder-gray-500 text-gray-700 focus:ring focus:outline-none w-full"
@@ -55,7 +58,7 @@ const BookSearch = () => {
               <input
                 type="text"
                 placeholder="Search by Author"
-                name="searchInput"
+                name="authorInput"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 className="block text-xl px-5 py-2 border rounded-lg bg-white shadow-lg placeholder-gray-500 text-gray-700 focus:ring focus:outline-none w-full"
@@ -79,39 +82,12 @@ const BookSearch = () => {
             {loading ? (
               <span className="loading loading-bars loading-md m-auto"></span>
             ) : searchResults.length > 1 ? (
-              <>
-                {searchResults.map((book, idx) => (
-                  <button
-                    className="btn-outline px-5 py-2 border rounded-lg"
-                    key={idx}
-                    onClick={() => getBook(idx)}
-                  >
-                    <h2 className="text-xl">{book.title}</h2>
-                    {book.author_name &&
-                      book.author_name.map((auth, i) => (
-                        <h3 className="text-l" key={i}>
-                          {auth}
-                        </h3>
-                      ))}
-                  </button>
-                ))}
-                <div className="flex justify-between mt-4">
-                  <button
-                    className="btn btn-outline"
-                    disabled={page === 1} // Disable "Previous" button on the first page
-                    onClick={() => handlePageChange(page - 1)}
-                  >
-                    Previous 10
-                  </button>
-
-                  <button
-                    className="btn btn-outline"
-                    onClick={() => handlePageChange(page + 1)}
-                  >
-                    Next 10
-                  </button>
-                </div>
-              </>
+              <SearchResults
+                searchResults={searchResults}
+                getBook={getBook}
+                handlePageChange={handlePageChange}
+                page={page}
+              />
             ) : (
               <h2 className="text-3xl">Find your next read...</h2>
             )}
