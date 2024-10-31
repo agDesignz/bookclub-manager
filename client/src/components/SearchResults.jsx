@@ -1,4 +1,22 @@
-const SearchResults = ({ searchResults, getBook, handlePageChange, page }) => {
+import { useEffect, useState } from "react";
+import BookModal from "./BookModal";
+
+const SearchResults = ({ searchResults, handlePageChange, page }) => {
+  const [modalData, setModalData] = useState({});
+
+  const resetData = () => {
+    setModalData({});
+  };
+
+  const getBook = (idx, bookTitle, bookAuthor, bookCover) => {
+    setModalData({ idx, bookTitle, bookAuthor, bookCover });
+    document.getElementById("book_modal").showModal();
+  };
+
+  useEffect(() => {
+    console.log("datachange");
+  }, [modalData]);
+
   return (
     <>
       {searchResults.map((book, idx) => (
@@ -34,6 +52,7 @@ const SearchResults = ({ searchResults, getBook, handlePageChange, page }) => {
           Next 10
         </button>
       </div>
+      <BookModal modalData={modalData} resetData={resetData} />
     </>
   );
 };

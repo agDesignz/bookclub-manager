@@ -35,8 +35,8 @@ const BookSearch = () => {
     setLoading(false);
   };
 
-  const getBook = (idx, bookTitle, bookAuthor, bookCover) =>
-    console.log(`Got book ${idx}, ${bookTitle}, by ${bookAuthor}`);
+  // const getBook = (idx, bookTitle, bookAuthor, bookCover) =>
+  //   console.log(`Got book ${idx}, ${bookTitle}, by ${bookAuthor}`);
 
   useEffect(() => {
     scrollToTop();
@@ -85,7 +85,7 @@ const BookSearch = () => {
             ) : searchResults.length > 1 ? (
               <SearchResults
                 searchResults={searchResults}
-                getBook={getBook}
+                // getBook={getBook}
                 handlePageChange={handlePageChange}
                 page={page}
               />
