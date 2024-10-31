@@ -47,12 +47,6 @@ const Header = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-transparent rounded-box z-[1] mt-3 p-2 w-max shadow text-right"
               >
-                {/* <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>*/}
                 <li onClick={handleClick}>
                   <Link to="/">Dashboard</Link>
                 </li>
