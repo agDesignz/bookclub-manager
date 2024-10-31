@@ -7,7 +7,7 @@ const ProfileScreen = () => {
   const [edit, setEdit] = useState(false);
   const [editData, setEditData] = useState(userData);
   const [alertMsg, setAlertMsg] = useState("");
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const handleEditChange = (e) => {
     // updateFormMessage();

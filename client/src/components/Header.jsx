@@ -45,7 +45,7 @@ const Header = () => {
             {isLoggedIn && (
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-transparent rounded-box z-[1] mt-3 p-2 w-max shadow text-right"
+                className="menu menu-sm dropdown-content bg-slate-950 rounded-box z-[1] mt-3 p-2 w-max shadow text-right"
               >
                 <li onClick={handleClick}>
                   <Link to="/">Dashboard</Link>
