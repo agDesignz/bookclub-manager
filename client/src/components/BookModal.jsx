@@ -1,8 +1,10 @@
 import { useState } from "react";
+import suggestBook from "../api/suggestBook";
+import { useAuth } from "../context/AuthContext";
 
 const BookModal = ({ modalData, resetData }) => {
   const { idx, bookTitle, bookAuthor, bookCover } = modalData;
-
+  const { userData } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -13,6 +15,10 @@ const BookModal = ({ modalData, resetData }) => {
   const handleImageError = () => {
     setIsLoading(false);
     setHasError(true); // Handle if there's an error loading the image
+  };
+
+  const handleSuggest = async (user) => {
+    suggestBook(user, bookTitle, bookAuthor, bookCover);
   };
 
   return (
@@ -31,9 +37,7 @@ const BookModal = ({ modalData, resetData }) => {
           <div className="flex flex-col md:flex-row gap-10 justify-between">
             <div className="book-cover">
               {isLoading && !hasError && (
-                <div className="loading-spinner">
-                  <span className="loading loading-bars loading-md"></span>
-                </div>
+                <span className="loading loading-bars loading-md"></span>
               )}
 
               {hasError ? (
@@ -59,7 +63,12 @@ const BookModal = ({ modalData, resetData }) => {
                     </p>
                   ))}
               </div>
-              <button className="btn btn-accent">Suggest Book</button>
+              <button
+                className="btn btn-accent"
+                onClick={() => handleSuggest(userData.username)}
+              >
+                Suggest Book
+              </button>
             </div>
           </div>
         </div>

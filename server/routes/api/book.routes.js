@@ -1,5 +1,9 @@
 const router = require("express").Router();
 
-const { tester } = require('../../controllers/book.controller');
+const { suggestBook } = require('../../controllers/book.controller');
+
+const { protect, admin } = require('../../middleware/authMiddleware');
+
+router.post('/', protect, suggestBook);
 
 module.exports = router;

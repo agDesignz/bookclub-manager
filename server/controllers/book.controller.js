@@ -11,9 +11,39 @@ const getBooks = asyncHandler(async (req, res) => {
 });
 
 // @desc Fetch book by keyword
-// @route GET /api/books
+// @route GET /api/book
 // @access Public
 
+// @desc Add/Suggest book to db
+// @route POST /api/book
+// @access Private
+const suggestBook = asyncHandler(async (req, res) => {
+  const { user, bookTitle, bookAuthor, bookCover } = req.body
+  const [book, created] = await Book.findOrCreate({
+    where: { title: bookTitle },
+    defaults: {
+      title: bookTitle,
+      author: bookAuthor,
+      cover: bookCover,
+      user_ref: user
+    }
+  });
+
+  if (!created) {
+    res.status(400);
+    throw new Error('Book already exists');
+  }
+
+  if (book) {
+    res.status(201).json({
+      user: book.user_ref,
+      title: book.title
+    });
+  } else {
+    res.status(400);
+    throw new Error('Could not process request');
+  }
+});
 
 
-module.exports = {}
+module.exports = { suggestBook }

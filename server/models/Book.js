@@ -23,10 +23,10 @@ Book.init(
       type: DataTypes.STRING
     },
     user_ref: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING(50),
       references: {
         model: 'user',
-        key: 'id'
+        key: 'username'
       }
     },
     finished: {
