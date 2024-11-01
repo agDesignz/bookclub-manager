@@ -20,7 +20,7 @@ const getBooks = asyncHandler(async (req, res) => {
 const suggestBook = asyncHandler(async (req, res) => {
   const { user, bookTitle, bookAuthor, bookCover } = req.body
   const [book, created] = await Book.findOrCreate({
-    where: { title: bookTitle },
+    where: { title: bookTitle, finished: false },
     defaults: {
       title: bookTitle,
       author: bookAuthor,
@@ -30,8 +30,7 @@ const suggestBook = asyncHandler(async (req, res) => {
   });
 
   if (!created) {
-    res.status(400);
-    throw new Error('Book already exists');
+    return res.status(409).json({ error: 'Book already exists' });
   }
 
   if (book) {
@@ -40,8 +39,7 @@ const suggestBook = asyncHandler(async (req, res) => {
       title: book.title
     });
   } else {
-    res.status(400);
-    throw new Error('Could not process request');
+    res.status(400).json({ error: 'Could not process request' });
   }
 });
 

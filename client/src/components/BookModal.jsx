@@ -1,12 +1,14 @@
 import { useState } from "react";
 import suggestBook from "../api/suggestBook";
 import { useAuth } from "../context/AuthContext";
+import Alert from "./Alert";
 
 const BookModal = ({ modalData, resetData }) => {
   const { idx, bookTitle, bookAuthor, bookCover } = modalData;
   const { userData } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleImageLoaded = () => {
     setIsLoading(false); // Hide loading spinner when the image is loaded
@@ -18,7 +20,28 @@ const BookModal = ({ modalData, resetData }) => {
   };
 
   const handleSuggest = async (user) => {
-    suggestBook(user, bookTitle, bookAuthor, bookCover);
+    try {
+      const suggestionReply = await suggestBook(
+        user,
+        bookTitle,
+        bookAuthor,
+        bookCover
+      );
+      console.log("suggestionReply", suggestionReply);
+      // Handle success logic
+      setErrorMessage(null); // Clear the error message on success
+    } catch (error) {
+      // If an error is thrown, it will be caught here
+      console.error("Error during suggestion:", error.message);
+
+      // Display the error message on the screen (e.g., set a state variable)
+      setErrorMessage(error.message);
+    }
+  };
+
+  const closeModalHandler = () => {
+    setErrorMessage("");
+    resetData();
   };
 
   return (
@@ -28,7 +51,7 @@ const BookModal = ({ modalData, resetData }) => {
           <form method="dialog">
             <button
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              onClick={resetData}
+              onClick={closeModalHandler}
             >
               ✕
             </button>
@@ -63,6 +86,7 @@ const BookModal = ({ modalData, resetData }) => {
                     </p>
                   ))}
               </div>
+              {errorMessage && <Alert content={errorMessage} />}
               <button
                 className="btn btn-accent"
                 onClick={() => handleSuggest(userData.username)}
