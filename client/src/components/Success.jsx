@@ -1,8 +1,8 @@
-const Alert = ({ content }) => {
+const Success = ({ content }) => {
   return (
     <div
       role="alert"
-      className={`alert alert-error${content.length ? "" : " invisible"}`}
+      className={`alert alert-success${content.length ? "" : " invisible"}`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -14,15 +14,11 @@ const Alert = ({ content }) => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
-          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      <span>{content}</span>
+      <span>Your purchase has been confirmed!</span>
     </div>
   );
 };
-export default Alert;
-
-// type "error" -> red
-// type "success" -> green
-// https://daisyui.com/components/alert/
+export default Success;

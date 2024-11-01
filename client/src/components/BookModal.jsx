@@ -2,6 +2,7 @@ import { useState } from "react";
 import suggestBook from "../api/suggestBook";
 import { useAuth } from "../context/AuthContext";
 import Alert from "./Alert";
+import Success from "./Success";
 
 const BookModal = ({ modalData, resetData }) => {
   const { idx, bookTitle, bookAuthor, bookCover } = modalData;
@@ -9,6 +10,8 @@ const BookModal = ({ modalData, resetData }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [showSuggestBtn, setShowSuggestBtn] = useState(true);
 
   const handleImageLoaded = () => {
     setIsLoading(false); // Hide loading spinner when the image is loaded
@@ -20,6 +23,7 @@ const BookModal = ({ modalData, resetData }) => {
   };
 
   const handleSuggest = async (user) => {
+    setShowSuggestBtn(false);
     try {
       const suggestionReply = await suggestBook(
         user,
@@ -29,6 +33,7 @@ const BookModal = ({ modalData, resetData }) => {
       );
       console.log("suggestionReply", suggestionReply);
       // Handle success logic
+      setSuccess(true);
       setErrorMessage(null); // Clear the error message on success
     } catch (error) {
       // If an error is thrown, it will be caught here
@@ -40,7 +45,9 @@ const BookModal = ({ modalData, resetData }) => {
   };
 
   const closeModalHandler = () => {
-    setErrorMessage("");
+    setErrorMessage(null);
+    setSuccess(false);
+    setShowSuggestBtn(true);
     resetData();
   };
 
@@ -57,7 +64,7 @@ const BookModal = ({ modalData, resetData }) => {
             </button>
           </form>
 
-          <div className="flex flex-col md:flex-row gap-10 justify-between">
+          <div className="flex flex-col md:flex-row gap-10 justify-between items-center">
             <div className="book-cover">
               {isLoading && !hasError && (
                 <span className="loading loading-bars loading-md"></span>
@@ -76,7 +83,7 @@ const BookModal = ({ modalData, resetData }) => {
                 />
               )}
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-4 justify-between">
               <div>
                 <h3 className="font-bold text-3xl">{bookTitle}</h3>
                 {bookAuthor &&
@@ -86,13 +93,20 @@ const BookModal = ({ modalData, resetData }) => {
                     </p>
                   ))}
               </div>
-              {errorMessage && <Alert content={errorMessage} />}
-              <button
-                className="btn btn-accent"
-                onClick={() => handleSuggest(userData.username)}
-              >
-                Suggest Book
-              </button>
+              {showSuggestBtn ? (
+                <button
+                  className="btn btn-accent"
+                  onClick={() => handleSuggest(userData.username)}
+                >
+                  Suggest Book
+                </button>
+              ) : success ? (
+                <Success content={"Book Suggestion Sent"} />
+              ) : (
+                (errorMessage && <Alert content={errorMessage} />) || (
+                  <p>Somethong's off; please try again</p>
+                )
+              )}
             </div>
           </div>
         </div>
