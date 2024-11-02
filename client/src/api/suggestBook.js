@@ -1,6 +1,6 @@
 
-const suggestBook = async (user, bookTitle, bookAuthor, bookCover) => {
-  const data = { user, bookTitle, bookAuthor: bookAuthor[0], bookCover };
+const suggestBook = async (user, bookTitle, bookAuthor, bookCover, bookDescription, bookKey) => {
+  const data = { user, bookTitle, bookAuthor: bookAuthor[0], bookCover, bookDescription, bookKey };
 
   try {
     const query = await fetch("/api/book", {

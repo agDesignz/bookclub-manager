@@ -5,7 +5,8 @@ import Alert from "./Alert";
 import Success from "./Success";
 
 const BookModal = ({ modalData, resetData }) => {
-  const { idx, bookTitle, bookAuthor, bookCover } = modalData;
+  const { idx, bookTitle, bookAuthor, bookCover, bookDescription, bookKey } =
+    modalData;
   const { userData } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -25,11 +26,14 @@ const BookModal = ({ modalData, resetData }) => {
   const handleSuggest = async (user) => {
     setShowSuggestBtn(false);
     try {
+      console.log("BookModal:", bookKey);
       const suggestionReply = await suggestBook(
         user,
         bookTitle,
         bookAuthor,
-        bookCover
+        bookCover,
+        bookDescription,
+        bookKey
       );
       console.log("suggestionReply", suggestionReply);
       // Handle success logic
@@ -54,7 +58,7 @@ const BookModal = ({ modalData, resetData }) => {
   return (
     <>
       <dialog id="book_modal" className="modal">
-        <div className="modal-box bg-amber-50 text-blue-950 px-14 py-10">
+        <div className="modal-box bg-amber-50 text-blue-950 lg:px-14 lg:py-10 max-w-4xl">
           <form method="dialog">
             <button
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -64,7 +68,7 @@ const BookModal = ({ modalData, resetData }) => {
             </button>
           </form>
 
-          <div className="flex flex-col md:flex-row gap-10 justify-between items-center">
+          <div className="flex flex-col md:flex-row gap-10 justify-between items-start">
             <div className="book-cover">
               {isLoading && !hasError && (
                 <span className="loading loading-bars loading-md"></span>
@@ -93,6 +97,7 @@ const BookModal = ({ modalData, resetData }) => {
                     </p>
                   ))}
               </div>
+              <p>{bookDescription}</p>
               {showSuggestBtn ? (
                 <button
                   className="btn btn-accent"

@@ -22,6 +22,12 @@ Book.init(
     cover: {
       type: DataTypes.STRING
     },
+    key: {
+      type: DataTypes.STRING(25)
+    },
+    description: {
+      type: DataTypes.TEXT
+    },
     user_ref: {
       type: DataTypes.STRING(50),
       references: {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BookModal from "./BookModal";
+import fetchBookDescription from "../api/fetchBookDescription";
 
 const SearchResults = ({ searchResults, handlePageChange, page }) => {
   const [modalData, setModalData] = useState({});
@@ -8,8 +9,16 @@ const SearchResults = ({ searchResults, handlePageChange, page }) => {
     setModalData({});
   };
 
-  const getBook = (idx, bookTitle, bookAuthor, bookCover) => {
-    setModalData({ idx, bookTitle, bookAuthor, bookCover });
+  const getBook = async (idx, bookTitle, bookAuthor, bookCover, bookKey) => {
+    const bookDescription = await fetchBookDescription(bookKey);
+    setModalData({
+      idx,
+      bookTitle,
+      bookAuthor,
+      bookCover,
+      bookDescription,
+      bookKey,
+    });
     document.getElementById("book_modal").showModal();
   };
 
@@ -24,7 +33,7 @@ const SearchResults = ({ searchResults, handlePageChange, page }) => {
           className="btn-outline px-5 py-2 border rounded-lg"
           key={idx}
           onClick={() =>
-            getBook(idx, book.title, book.author_name, book.cover_i)
+            getBook(idx, book.title, book.author_name, book.cover_i, book.key)
           }
         >
           <h2 className="text-xl">{book.title}</h2>

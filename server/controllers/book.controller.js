@@ -18,14 +18,16 @@ const getBooks = asyncHandler(async (req, res) => {
 // @route POST /api/book
 // @access Private
 const suggestBook = asyncHandler(async (req, res) => {
-  const { user, bookTitle, bookAuthor, bookCover } = req.body
+  const { user, bookTitle, bookAuthor, bookCover, bookDescription, bookKey } = req.body
   const [book, created] = await Book.findOrCreate({
     where: { title: bookTitle, finished: false },
     defaults: {
       title: bookTitle,
       author: bookAuthor,
       cover: bookCover,
-      user_ref: user
+      user_ref: user,
+      description: bookDescription,
+      key: bookKey
     }
   });
 
