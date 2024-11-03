@@ -10,9 +10,18 @@ const getBooks = asyncHandler(async (req, res) => {
   // Follow Brad Traversy's example with page limits
 });
 
-// @desc Fetch book by keyword
+// @desc Fetch all books
 // @route GET /api/book
 // @access Public
+const getAllBooks = asyncHandler(async (req, res) => {
+  const books = await Book.findAll();
+  if (books) {
+    res.status(200).json(books);
+  } else {
+    res.status(400).json({ error: "No books found" });
+  }
+
+});
 
 // @desc Add/Suggest book to db
 // @route POST /api/book
@@ -46,4 +55,4 @@ const suggestBook = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { suggestBook }
+module.exports = { suggestBook, getAllBooks }

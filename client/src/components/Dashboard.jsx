@@ -13,13 +13,16 @@ const Dashboard = () => {
           </div>
         </Link>
 
-        <div className="card bg-primary text-primary-content w-96">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end"></div>
+        <Link to="/suggestions">
+          <div className="card bg-primary text-primary-content w-96">
+            <div className="card-body">
+              <h2 className="card-title">Vote for books</h2>
+              <p>Select the next book</p>
+              <div className="card-actions justify-end"></div>
+            </div>
           </div>
-        </div>
+        </Link>
+
         <div className="card bg-primary text-primary-content w-96">
           <div className="card-body">
             <h2 className="card-title">Card title!</h2>

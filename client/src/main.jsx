@@ -15,6 +15,7 @@ import AdminScreen from "./screens/AdminScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import AdminRoute from "./components/AdminRoute.jsx";
 import BookSearch from "./screens/BookSearch.jsx";
+import BooksScreen from "./screens/BooksScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/search" element={<BookSearch />} />
+        <Route path="/suggestions" element={<BooksScreen />} />
       </Route>
 
       <Route path="" element={<AdminRoute />}>
