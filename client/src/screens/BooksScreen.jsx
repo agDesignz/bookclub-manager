@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import getBooks from "../api/getBooks";
+import DescriptionModal from "../components/DescriptionModal";
 
 const BooksScreen = () => {
   const [books, setBooks] = useState([]);
@@ -7,27 +8,35 @@ const BooksScreen = () => {
   const fetchSavedBooks = async () => {
     const bookData = await getBooks();
     console.log("fetchSavedBooks:", bookData);
+    setBooks(bookData);
   };
   useEffect(() => {
     fetchSavedBooks();
   }, []);
   return (
     <div className="mx-auto h-full container m-4">
-      <div className="sm:columns-2 md:columns-3 xl:columns-4 gap-4 md:gap-8">
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
         {books.map((book, idx) => (
-          <div className="card card-side bg-base-100 shadow-xl">
+          <div
+            key={idx}
+            className="grid md:grid-cols-2 rounded-lg p-4 bg-indigo-100 text-blue-950 shadow-xl"
+          >
             <figure>
               <img
-                src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                alt="Movie"
+                src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
+                alt={`Cover image of ${book.title}`}
               />
             </figure>
-            <div className="card-body">
-              <h2 className="card-title">New movie is released!</h2>
-              <p>Click the button to watch on Jetflix app.</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Watch</button>
+            <div className="flex flex-col justify-between">
+              <div className="flex flex-col gap-4">
+                <h2 className="card-title">{book.title}</h2>
+                <p>{book.author}</p>
+                <p>Recommended by {book.user_ref}</p>
               </div>
+              <DescriptionModal
+                bookDescription={book.description}
+                modalId={`modal_${idx}`}
+              />
             </div>
           </div>
         ))}

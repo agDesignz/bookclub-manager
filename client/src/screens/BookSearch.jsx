@@ -14,7 +14,6 @@ const BookSearch = () => {
     e.preventDefault();
     setLoading(true);
     const searchData = await fetchBookData(title, author, 1);
-    console.log("searchData:", searchData);
     setSearchResults(searchData);
     setLoading(false);
   };
@@ -24,7 +23,6 @@ const BookSearch = () => {
     const searchData = await fetchBookData(title, author, newPage);
     setSearchResults(searchData);
     setPage(newPage);
-    console.log("newPage:", newPage);
     setLoading(false);
   };
 
@@ -81,7 +79,7 @@ const BookSearch = () => {
               </div>
             </form>
           </div>
-          <div className="flex flex-col gap-8 basis-full pb-16">
+          <div className="flex flex-col gap-8 basis-full">
             {loading ? (
               <span className="loading loading-bars loading-md m-auto"></span>
             ) : searchResults.books ? (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BookModal from "./BookModal";
 import fetchBookDescription from "../api/fetchBookDescription";
 
@@ -23,10 +23,6 @@ const SearchResults = ({ searchResults, handlePageChange, page }) => {
     document.getElementById("book_modal").showModal();
   };
 
-  useEffect(() => {
-    console.log("datachange:", searchResults);
-  }, [modalData]);
-
   return (
     <>
       {books.map((book, idx) => (
@@ -46,25 +42,23 @@ const SearchResults = ({ searchResults, handlePageChange, page }) => {
             ))}
         </button>
       ))}
-      {numFound > 10 && (
-        <div className="flex justify-between mt-4 mb-16">
-          <button
-            className="btn btn-outline"
-            disabled={page === 1} // Disable "Previous" button on the first page
-            onClick={() => handlePageChange(page - 1)}
-          >
-            Previous 10
-          </button>
+      <div className="flex justify-between mt-4 mb-16">
+        <button
+          className="btn btn-outline"
+          disabled={page === 1} // Disable "Previous" button on the first page
+          onClick={() => handlePageChange(page - 1)}
+        >
+          Previous 10
+        </button>
 
-          <button
-            className="btn btn-outline"
-            disabled={page * 10 > numFound}
-            onClick={() => handlePageChange(page + 1)}
-          >
-            Next 10
-          </button>
-        </div>
-      )}
+        <button
+          className="btn btn-outline"
+          disabled={page * 10 > numFound}
+          onClick={() => handlePageChange(page + 1)}
+        >
+          Next 10
+        </button>
+      </div>
       <BookModal modalData={modalData} resetData={resetData} />
     </>
   );
