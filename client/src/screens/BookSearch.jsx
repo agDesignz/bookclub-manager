@@ -6,7 +6,7 @@ import SearchResults from "../components/SearchResults";
 const BookSearch = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState({});
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -14,6 +14,7 @@ const BookSearch = () => {
     e.preventDefault();
     setLoading(true);
     const searchData = await fetchBookData(title, author, 1);
+    console.log("searchData:", searchData);
     setSearchResults(searchData);
     setLoading(false);
   };
@@ -23,6 +24,7 @@ const BookSearch = () => {
     const searchData = await fetchBookData(title, author, newPage);
     setSearchResults(searchData);
     setPage(newPage);
+    console.log("newPage:", newPage);
     setLoading(false);
   };
 
@@ -30,7 +32,7 @@ const BookSearch = () => {
     setLoading(true);
     setTitle("");
     setAuthor("");
-    setSearchResults([]);
+    setSearchResults({});
     setPage(1);
     setLoading(false);
   };
@@ -79,10 +81,10 @@ const BookSearch = () => {
               </div>
             </form>
           </div>
-          <div className="flex flex-col gap-8 basis-full">
+          <div className="flex flex-col gap-8 basis-full pb-16">
             {loading ? (
               <span className="loading loading-bars loading-md m-auto"></span>
-            ) : searchResults.length > 1 ? (
+            ) : searchResults.books ? (
               <SearchResults
                 searchResults={searchResults}
                 // getBook={getBook}

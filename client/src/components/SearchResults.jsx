@@ -4,6 +4,7 @@ import fetchBookDescription from "../api/fetchBookDescription";
 
 const SearchResults = ({ searchResults, handlePageChange, page }) => {
   const [modalData, setModalData] = useState({});
+  const { books, numFound } = searchResults;
 
   const resetData = () => {
     setModalData({});
@@ -23,12 +24,12 @@ const SearchResults = ({ searchResults, handlePageChange, page }) => {
   };
 
   useEffect(() => {
-    console.log("datachange");
+    console.log("datachange:", searchResults);
   }, [modalData]);
 
   return (
     <>
-      {searchResults.map((book, idx) => (
+      {books.map((book, idx) => (
         <button
           className="btn-outline px-5 py-2 border rounded-lg"
           key={idx}
@@ -45,22 +46,25 @@ const SearchResults = ({ searchResults, handlePageChange, page }) => {
             ))}
         </button>
       ))}
-      <div className="flex justify-between mt-4 mb-16">
-        <button
-          className="btn btn-outline"
-          disabled={page === 1} // Disable "Previous" button on the first page
-          onClick={() => handlePageChange(page - 1)}
-        >
-          Previous 10
-        </button>
+      {numFound > 10 && (
+        <div className="flex justify-between mt-4 mb-16">
+          <button
+            className="btn btn-outline"
+            disabled={page === 1} // Disable "Previous" button on the first page
+            onClick={() => handlePageChange(page - 1)}
+          >
+            Previous 10
+          </button>
 
-        <button
-          className="btn btn-outline"
-          onClick={() => handlePageChange(page + 1)}
-        >
-          Next 10
-        </button>
-      </div>
+          <button
+            className="btn btn-outline"
+            disabled={page * 10 > numFound}
+            onClick={() => handlePageChange(page + 1)}
+          >
+            Next 10
+          </button>
+        </div>
+      )}
       <BookModal modalData={modalData} resetData={resetData} />
     </>
   );
