@@ -3,7 +3,7 @@ const DescriptionModal = ({ bookDescription, modalId }) => {
     <>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn bg-indigo-900 hover:bg-slate-700"
+        className="text-left font-bold text-lg link link-hover self-start"
         onClick={() => document.getElementById(modalId).showModal()}
       >
         Read Description
@@ -15,7 +15,7 @@ const DescriptionModal = ({ bookDescription, modalId }) => {
               ✕
             </button>
           </form>
-          <p className="py-4">{bookDescription}</p>
+          <p className="py-4 text-lg">{bookDescription}</p>
         </div>
       </dialog>
     </>
