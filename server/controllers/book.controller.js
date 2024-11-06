@@ -1,24 +1,29 @@
-const Book = require("../models/Book");
+const { Book, User } = require("../models");
+
 const asyncHandler = require("../middleware/asyncHandler");
-
-const tester = () => console.log("Test from book controller");
-
-// @desc Fetch all books
-// @route GET /api/books
-// @access Public
-const getBooks = asyncHandler(async (req, res) => {
-  // Follow Brad Traversy's example with page limits
-});
 
 // @desc Fetch all books
 // @route GET /api/book
 // @access Public
 const getAllBooks = asyncHandler(async (req, res) => {
-  const books = await Book.findAll();
-  if (books) {
-    res.status(200).json(books);
-  } else {
-    res.status(400).json({ error: "No books found" });
+  try {
+    const books = await Book.findAll({
+      include: [
+        {
+          model: User,
+          as: "voters",
+          through: { attributes: [] }, // Exclude Vote attributes
+        },
+      ],
+    });
+    if (books) {
+      res.status(200).json(books);
+    } else {
+      res.status(400).json({ error: "No books found" });
+    }
+  } catch (err) {
+    console.error(err); // Log the actual error message
+    res.status(500).json({ error: "Server error" });
   }
 });
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DescriptionModal from "./DescriptionModal";
 
-const BookCard = ({ book, user, removeBook }) => {
+const BookCard = ({ book, user, removeBook, handleVote }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDeleteBook = () => {
@@ -20,6 +20,7 @@ const BookCard = ({ book, user, removeBook }) => {
     >
       <figure>
         <img
+          className="h-full"
           src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
           alt={`Cover image of ${book.title}`}
         />
@@ -31,6 +32,9 @@ const BookCard = ({ book, user, removeBook }) => {
           <p className="italic text-amber-700">
             Recommended by {user === book.user_ref ? "you" : book.user_ref}
           </p>
+          <div className="badge badge-success badge-outline badge-lg">
+            Votes: {book.voters.length}
+          </div>
           <DescriptionModal
             bookDescription={book.description}
             modalId={`modal_${book.id}`}
@@ -46,7 +50,10 @@ const BookCard = ({ book, user, removeBook }) => {
               Delete
             </button>
           ) : (
-            <button className="btn btn-outline btn-success">
+            <button
+              className="btn btn-outline btn-success"
+              onClick={handleVote}
+            >
               Vote for this book
             </button>
           )}
