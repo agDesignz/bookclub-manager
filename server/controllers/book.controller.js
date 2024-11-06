@@ -1,5 +1,5 @@
-const Book = require('../models/Book');
-const asyncHandler = require('../middleware/asyncHandler');
+const Book = require("../models/Book");
+const asyncHandler = require("../middleware/asyncHandler");
 
 const tester = () => console.log("Test from book controller");
 
@@ -20,14 +20,14 @@ const getAllBooks = asyncHandler(async (req, res) => {
   } else {
     res.status(400).json({ error: "No books found" });
   }
-
 });
 
 // @desc Add/Suggest book to db
 // @route POST /api/book
 // @access Private
 const suggestBook = asyncHandler(async (req, res) => {
-  const { user, bookTitle, bookAuthor, bookCover, bookDescription, bookKey } = req.body
+  const { user, bookTitle, bookAuthor, bookCover, bookDescription, bookKey } =
+    req.body;
   const [book, created] = await Book.findOrCreate({
     where: { title: bookTitle, finished: false },
     defaults: {
@@ -36,23 +36,36 @@ const suggestBook = asyncHandler(async (req, res) => {
       cover: bookCover,
       user_ref: user,
       description: bookDescription,
-      key: bookKey
-    }
+      key: bookKey,
+    },
   });
 
   if (!created) {
-    return res.status(409).json({ error: 'Book already exists' });
+    return res.status(409).json({ error: "Book already exists" });
   }
 
   if (book) {
     res.status(201).json({
       user: book.user_ref,
-      title: book.title
+      title: book.title,
     });
   } else {
-    res.status(400).json({ error: 'Could not process request' });
+    res.status(400).json({ error: "Could not process request" });
   }
 });
 
+// @desc Delete book from db
+// @route DELETE /api/book/:id
+// @access Private
+const deleteBook = asyncHandler(async (req, res) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    book.destroy();
+    res.status(201).json(book);
+  } else {
+    res.status(404);
+    throw new Error("Book not found");
+  }
+});
 
-module.exports = { suggestBook, getAllBooks }
+module.exports = { suggestBook, getAllBooks, deleteBook };

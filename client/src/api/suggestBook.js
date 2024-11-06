@@ -1,30 +1,40 @@
-
-const suggestBook = async (user, bookTitle, bookAuthor, bookCover, bookDescription, bookKey) => {
-  const data = { user, bookTitle, bookAuthor: bookAuthor[0], bookCover, bookDescription, bookKey };
+const suggestBook = async (
+  user,
+  bookTitle,
+  bookAuthor,
+  bookCover,
+  bookDescription,
+  bookKey
+) => {
+  const data = {
+    user,
+    bookTitle,
+    bookAuthor: bookAuthor[0],
+    bookCover,
+    bookDescription,
+    bookKey,
+  };
 
   try {
     const query = await fetch("/api/book", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
-      credentials: "include"
+      credentials: "include",
     });
 
     if (!query.ok) {
       // Throw an error for non-200 status codes
       const errorData = await query.json();
-      console.log("Our Error:", errorData);
       throw new Error(errorData.error);
     }
 
     const result = await query.json();
-    console.log("query from function", result);
     return result;
-
   } catch (error) {
-    console.error('Error during fetch:', error.message);
+    console.error("Error during fetch:", error.message);
     throw error;
   }
 };

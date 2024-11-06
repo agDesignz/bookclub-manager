@@ -26,7 +26,6 @@ const BookModal = ({ modalData, resetData }) => {
   const handleSuggest = async (user) => {
     setShowSuggestBtn(false);
     try {
-      console.log("BookModal:", bookKey);
       const suggestionReply = await suggestBook(
         user,
         bookTitle,

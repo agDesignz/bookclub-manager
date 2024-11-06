@@ -8,7 +8,6 @@ const fetchBookData = async (title, author, page) => {
         method: "GET",
       }
     );
-    console.log("fetch query:", query);
     if (query.ok) {
       const payload = await query.json();
       const filteredBooks = payload.docs.filter(
