@@ -1,7 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-class Vote extends Model { };
+class Vote extends Model {}
 
 Vote.init(
   {
@@ -14,15 +14,15 @@ Vote.init(
     user_id: {
       type: DataTypes.UUID,
       references: {
-        model: 'user',
-        key: 'id',
+        model: "user",
+        key: "id",
       },
     },
     book_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'book',
-        key: 'id',
+        model: "book",
+        key: "id",
       },
     },
   },
@@ -31,7 +31,7 @@ Vote.init(
     timestamps: false, // No automatically-generated timestamps
     freezeTableName: true, // Prevents pluralization
     underscored: true,
-    modelName: 'vote'
+    modelName: "vote",
   }
 );
 

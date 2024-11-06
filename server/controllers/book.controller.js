@@ -12,6 +12,7 @@ const getAllBooks = asyncHandler(async (req, res) => {
         {
           model: User,
           as: "voters",
+          attributes: ["username"],
           through: { attributes: [] }, // Exclude Vote attributes
         },
       ],

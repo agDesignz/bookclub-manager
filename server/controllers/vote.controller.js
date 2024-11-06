@@ -27,4 +27,21 @@ const createVote = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createVote };
+// @desc DELETE Vote
+// @route DELETE /api/vote/
+// @access Private
+const deleteVote = asyncHandler(async (req, res) => {
+  const { user, book } = req.body;
+  const vote = await Vote.findOne({
+    where: { user_id: user, book_id: book },
+  });
+
+  if (vote) {
+    vote.destroy();
+    res.status(201).json("Vote deleted");
+  } else {
+    res.status(400).json({ error: "Could not process request" });
+  }
+});
+
+module.exports = { createVote, deleteVote };

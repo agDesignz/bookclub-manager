@@ -1,14 +1,15 @@
 import { useState } from "react";
 import DescriptionModal from "./DescriptionModal";
 
-const BookCard = ({ book, user, removeBook, handleVote }) => {
+const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const hasVoted = book.voters.some((voter) => voter.username === user);
 
   const handleDeleteBook = () => {
     setIsDeleting(true);
     setTimeout(() => {
       removeBook();
-      setIsDeleting(true);
+      setIsDeleting(false);
     }, 500);
   };
 
@@ -48,6 +49,13 @@ const BookCard = ({ book, user, removeBook, handleVote }) => {
               onClick={handleDeleteBook}
             >
               Delete
+            </button>
+          ) : hasVoted ? (
+            <button
+              className="btn btn-outline btn-error"
+              onClick={handleVoteDelete}
+            >
+              Remove your vote
             </button>
           ) : (
             <button

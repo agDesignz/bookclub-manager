@@ -3,6 +3,7 @@ const getBooks = async () => {
     const query = await fetch("api/book");
     if (query.ok) {
       const bookData = await query.json();
+      // console.log("bookData:", bookData);
       return bookData;
     }
   } catch (error) {

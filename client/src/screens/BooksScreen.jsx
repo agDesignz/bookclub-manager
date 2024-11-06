@@ -5,6 +5,7 @@ import deleteBook from "../api/deleteBook";
 import getBooks from "../api/getBooks";
 import BookCard from "../components/BookCard";
 import castVote from "../api/castVote";
+import deleteVote from "../api/deleteVote";
 
 const BooksScreen = () => {
   const [books, setBooks] = useState([]);
@@ -28,6 +29,33 @@ const BooksScreen = () => {
     try {
       await castVote(userData.id, bk);
       console.log("vote cast");
+      setBooks(
+        books.map((b) =>
+          b.id === bk
+            ? { ...b, voters: [...b.voters, { username: userData.username }] }
+            : b
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleVoteDelete = async (bk) => {
+    try {
+      await deleteVote(userData.id, bk);
+      setBooks(
+        books.map((b) =>
+          b.id === bk
+            ? {
+                ...b,
+                voters: b.voters.filter(
+                  (voter) => voter.username !== userData.username
+                ),
+              }
+            : b
+        )
+      );
     } catch (error) {
       console.log(error);
     }
@@ -36,9 +64,10 @@ const BooksScreen = () => {
   useEffect(() => {
     fetchSavedBooks();
   }, []);
-  useEffect(() => {
-    console.log("books:", books);
-  }, [books]);
+
+  // useEffect(() => {
+  //   console.log("books:", books);
+  // }, [books]);
 
   return (
     <div className="mx-auto h-full container m-4">
@@ -50,6 +79,7 @@ const BooksScreen = () => {
             user={userData.username}
             removeBook={() => removeBook(book.id)}
             handleVote={() => handleVote(book.id)}
+            handleVoteDelete={() => handleVoteDelete(book.id)}
           />
         ))}
       </div>
