@@ -15,18 +15,18 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
 
   return (
     <div
-      className={`grid grid-cols-2 gap-4 rounded-sm p-4 bg-amber-50 text-blue-900 shadow-xl transition-opacity duration-500 ${
+      className={`grid md:grid-cols-2 gap-4 rounded-sm p-4 bg-amber-50 text-blue-900 shadow-xl transition-opacity duration-500 ${
         isDeleting ? "opacity-0" : "opacity-100"
       }`}
     >
-      <figure>
+      <figure className="hidden md:block">
         <img
-          className="h-full"
+          className=""
           src={`https://covers.openlibrary.org/b/id/${book.cover}-M.jpg`}
           alt={`Cover image of ${book.title}`}
         />
       </figure>
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col gap-2 justify-between">
         <div className="flex flex-col gap-2">
           <h2 className="card-title">{book.title}</h2>
           <p>{book.author}</p>

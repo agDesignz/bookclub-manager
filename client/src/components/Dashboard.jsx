@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const Dashboard = () => {
   return (
     <section className="dashboard container">
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-stretch">
         <Link to="/search">
-          <div className="card bg-primary text-primary-content w-96">
+          <div className="card bg-primary text-primary-content">
             <div className="card-body">
               <h2 className="card-title">Book Search</h2>
               <p>Placeholder for a book search option</p>
@@ -14,7 +14,7 @@ const Dashboard = () => {
         </Link>
 
         <Link to="/suggestions">
-          <div className="card bg-primary text-primary-content w-96">
+          <div className="card bg-primary text-primary-content">
             <div className="card-body">
               <h2 className="card-title">Vote for books</h2>
               <p>Select the next book</p>
@@ -23,7 +23,7 @@ const Dashboard = () => {
           </div>
         </Link>
 
-        <div className="card bg-primary text-primary-content w-96">
+        <div className="card bg-primary text-primary-content">
           <div className="card-body">
             <h2 className="card-title">Card title!</h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
@@ -32,7 +32,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="card bg-primary text-primary-content w-96">
+        <div className="card bg-primary text-primary-content">
           <div className="card-body">
             <h2 className="card-title">Card title!</h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>

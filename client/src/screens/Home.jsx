@@ -11,6 +11,11 @@ const Home = () => {
       console.log("Home userData:", userData);
     }
   }, [userData]); // This will run whenever userData changes
+
+  useEffect(() => {
+    console.log("userData:", userData);
+  }, []);
+
   return (
     <div className="grow flex flex-col items-center">
       {isLoggedIn ? <Dashboard /> : <Landing />}

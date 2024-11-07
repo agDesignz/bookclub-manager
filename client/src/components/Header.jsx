@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const { isLoggedIn } = useAuth();
-  const { logoutHandler } = useAuth();
+  const { logoutHandler, userData } = useAuth();
 
   // Close dropdown on click, thanks to Malik Hamza: https://medium.com/@malikhamzav/how-to-close-daisyui-dropdown-on-click-ea65c5749410
   const handleClick = () => {
@@ -53,6 +53,11 @@ const Header = () => {
                 <li onClick={handleClick}>
                   <Link to="/profile">My Profile</Link>
                 </li>
+                {userData.isAdmin && (
+                  <li onClick={handleClick}>
+                    <Link to="/admin">Admin Page</Link>
+                  </li>
+                )}
                 <li className="mt-4" onClick={handleClick}>
                   <button onClick={logoutHandler}>Log out</button>
                 </li>
