@@ -11,9 +11,9 @@ import App from "./App.jsx";
 import "./index.css";
 import Home from "./screens/Home.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
-import AdminScreen from "./screens/AdminScreen.jsx";
+import AdminScreen from "./screens/admin/AdminScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
-import AdminRoute from "./components/AdminRoute.jsx";
+import AdminRoute from "./components/admin/AdminRoute.jsx";
 import BookSearch from "./screens/BookSearch.jsx";
 import BooksScreen from "./screens/BooksScreen.jsx";
 

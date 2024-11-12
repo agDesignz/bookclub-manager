@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import NextMeeting from "./NextMeeting";
 
 const Dashboard = () => {
   return (
     <section className="dashboard container">
       <div className="flex flex-col gap-4 items-stretch">
+        <NextMeeting />
         <Link to="/search">
           <div className="card bg-primary text-primary-content">
             <div className="card-body">
