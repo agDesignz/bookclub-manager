@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import getMeets from "../../api/getMeets";
 import getLatestMeet from "../../api/getLatestMeet";
-import NewMeeting from "../../components/admin/NewMeeting";
+import CreateMeeting from "../../components/admin/CreateMeeting";
 
 const AdminScreen = () => {
   const [users, setUsers] = useState([]);
@@ -57,7 +57,7 @@ const AdminScreen = () => {
           {meetLoading ? (
             <span className="loading loading-bars loading-md"></span>
           ) : (
-            <NewMeeting nextMeet={nextMeet} />
+            <CreateMeeting nextMeet={nextMeet} />
           )}
         </div>
         {/* {userLoading ? (

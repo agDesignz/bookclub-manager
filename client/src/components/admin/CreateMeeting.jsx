@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import getBooks from "../../api/getBooks";
 
-const NewMeeting = ({ nextMeet }) => {
+const CreateMeeting = ({ nextMeet }) => {
   const [bookLoading, setBookLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [meetData, setMeetData] = useState({});
@@ -32,21 +32,21 @@ const NewMeeting = ({ nextMeet }) => {
       <input
         type="text"
         name="location"
-        value={nextMeet?.location || ""}
+        value={meetData?.location || ""}
         placeholder="Location"
         className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
-        //   onChange={handleSignupChange}
+        onChange={handleMeetChange}
       />
       <label hidden htmlFor="username">
         Date
       </label>
       <input
-        type="meet_date"
+        type="date"
         name="date"
-        value={nextMeet?.meet_date || ""}
+        value={meetData?.date || ""}
         placeholder="Date"
         className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
-        //   onChange={handleSignupChange}
+        onChange={handleMeetChange}
       />
       <label hidden htmlFor="password">
         Time
@@ -54,23 +54,23 @@ const NewMeeting = ({ nextMeet }) => {
       <input
         type="time"
         name="time"
-        value={nextMeet?.time || ""}
+        value={meetData?.time || ""}
         placeholder="Select Time"
         className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
-        //   onChange={handleSignupChange}
+        onChange={handleMeetChange}
       />
       {bookLoading ? (
         <span className="loading loading-bars loading-md"></span>
       ) : (
-        <div className="flex gap-8 w-full">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full">
           <input
             type="text"
-            name="current_book"
-            value={nextMeet?.current_book || ""}
+            name="book"
+            value={meetData?.book || ""}
             placeholder="Next Book"
             className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
             disabled
-            //   onChange={handleSignupChange}
+            onChange={handleMeetChange}
           />
           {/* <select
             name="book"
@@ -97,10 +97,10 @@ const NewMeeting = ({ nextMeet }) => {
       )}
 
       <button className="btn btn-wide btn-ghost" type="submit">
-        Create Account
+        Create Meeting
       </button>
       {/* <Alert content={alertMsg} /> */}
     </form>
   );
 };
-export default NewMeeting;
+export default CreateMeeting;
