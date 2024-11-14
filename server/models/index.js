@@ -26,11 +26,11 @@ Book.belongsToMany(User, {
 });
 
 Book.hasMany(Meeting, {
-  foreignKey: "bookSelection", // Explicitly define the foreign key
+  foreignKey: "book_id", // Explicitly define the foreign key
 });
 
 Meeting.belongsTo(Book, {
-  foreignKey: "bookSelection", // Explicitly define the foreign key
+  foreignKey: "book_id", // Explicitly define the foreign key
 });
 
 module.exports = { User, Book, Meeting, Vote };

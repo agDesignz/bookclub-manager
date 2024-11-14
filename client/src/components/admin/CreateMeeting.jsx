@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
 import getBooks from "../../api/getBooks";
 import SelectBook from "./SelectBook";
+import createMeeting from "../../api/createMeeting";
+import { useMeetingContext } from "../../context/MeetContext";
 
-const CreateMeeting = ({ nextMeet }) => {
+const CreateMeeting = ({ edit }) => {
+  const [isEditing, setIsEditing] = useState(edit);
   const [bookLoading, setBookLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [meetData, setMeetData] = useState({});
+  const { meetingLoading, meeting, setMeeting } = useMeetingContext();
+  const meetingData = {
+    location: meeting?.location,
+    date: meeting?.date,
+    time: meeting?.time,
+    bookId: meeting?.book.id,
+    bookTitle: meeting?.book.title,
+  };
 
   const handleMeetChange = (e) => {
     setMeetData({ ...meetData, [e.target.name]: e.target.value });
@@ -22,13 +33,29 @@ const CreateMeeting = ({ nextMeet }) => {
     document.getElementById("select_book").showModal();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(meetData);
+    console.log("meetData:", meetData);
+    const newMeeting = await createMeeting(meetData);
+    console.log("newMeeting:", newMeeting);
+    setMeeting(newMeeting);
+  };
+
+  const editOrCreate = (e) => {
+    e.preventDefault();
+    if (isEditing) {
+      setMeetData({});
+    } else {
+      setMeetData(meetingData);
+    }
+    setIsEditing(!isEditing);
   };
 
   useEffect(() => {
     fetchBooks();
+    if (isEditing) {
+      setMeetData(meetingData);
+    }
   }, []);
 
   return (
@@ -37,7 +64,12 @@ const CreateMeeting = ({ nextMeet }) => {
         className="flex flex-col gap-4 items-center"
         onSubmit={handleSubmit}
       >
-        <h2>Next Meeting</h2>
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full justify-between">
+          <h2>{isEditing ? "Edit Meeting" : "Create Meeting"}</h2>
+          <button className="btn btn-outline btn-xs" onClick={editOrCreate}>
+            {isEditing ? "New Meeting" : "Update Meeting"}
+          </button>
+        </div>
         <label hidden htmlFor="email">
           Location
         </label>
@@ -75,45 +107,33 @@ const CreateMeeting = ({ nextMeet }) => {
           <span className="loading loading-bars loading-md"></span>
         ) : (
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full">
-            <input
+            {/* <input
               type="text"
               name="book"
-              value={meetData?.book || ""}
+              value={meetData?.bookTitle || ""}
               placeholder="Next Book"
               className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
               disabled
               onChange={handleMeetChange}
-            />
-            {/* <select
-            name="book"
-            className="select select-bordered rounded-lg py-3 px-3 border-indigo-600 placeholder-white-500 text-white w-full lg:w-1/2"
-          >
-            {books.map((book) => (
-              <option value={book.id} key={book.id}>
-                {" "}
-                {book.id === nextMeet.book.id && "selected"}
-                <div className="btn-outline px-5 py-2 border rounded-lg flex gap-4">
-                  <h2 className="text-xl">{book.title} -- </h2>
-                  <h3 className="text-l">{book.author}</h3>
-                </div>
-              </option>
-            ))}
-          </select> */}
+            /> */}
             <button
               className="btn btn-outline w-full lg:w-1/2"
               onClick={handleSelectBook}
             >
-              Select Book
+              {meetData?.bookTitle || "Select Book"}
             </button>
+            {isEditing ? (
+              <button className="btn btn-success grow" type="submit">
+                Update Meeting
+              </button>
+            ) : (
+              <button className="btn btn-success grow" type="submit">
+                Create Meeting
+              </button>
+            )}
           </div>
-
-          //   className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
-          //   onChange={handleSignupChange}
         )}
 
-        <button className="btn btn-wide btn-ghost" type="submit">
-          Create Meeting
-        </button>
         {/* <Alert content={alertMsg} /> */}
       </form>
       <SelectBook books={books} setMeetData={setMeetData} meetData={meetData} />

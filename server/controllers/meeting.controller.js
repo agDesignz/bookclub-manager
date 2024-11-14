@@ -2,7 +2,7 @@ const { Meeting, Book } = require("../models");
 const asyncHandler = require("../middleware/asyncHandler");
 
 // @desc Fetch all meetings
-// @route GET /api/next
+// @route GET /api/meeting
 // @access Private
 const getAllMeets = asyncHandler(async (req, res) => {
   try {
@@ -21,11 +21,11 @@ const getAllMeets = asyncHandler(async (req, res) => {
 });
 
 // @desc Fetch the latest meeting
-// @route GET /api/next/latest
+// @route GET /api/meeting/latest
 // @access Private
 const getNextMeet = asyncHandler(async (req, res) => {
   try {
-    const nextMeet = await NextMeet.findOne({
+    const nextMeet = await Meeting.findOne({
       include: Book,
       order: [["id", "DESC"]],
     });
@@ -39,4 +39,29 @@ const getNextMeet = asyncHandler(async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-module.exports = { getAllMeets, getNextMeet };
+
+// @desc Create Next Meeting
+// @route Post /api/meeting
+// @access Admin
+const createMeeting = asyncHandler(async (req, res) => {
+  const { date, time, location, book_id } = req.body;
+  try {
+    const newMeeting = await Meeting.create({
+      date,
+      time,
+      location,
+      book_id,
+    });
+
+    const meetingAndBook = await Meeting.findOne({
+      where: { id: newMeeting.id },
+      include: Book,
+    });
+    res.status(201).json(meetingAndBook);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "server error" });
+  }
+});
+
+module.exports = { getAllMeets, getNextMeet, createMeeting };

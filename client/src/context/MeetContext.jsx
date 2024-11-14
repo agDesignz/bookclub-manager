@@ -1,15 +1,17 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import getLatestMeet from "../api/getLatestMeet";
 
 export const MeetContext = createContext();
 
 export const MeetContextProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [meet, setMeet] = useState({});
+  const [meetingLoading, setMeetingLoading] = useState(true);
+  const [meeting, setMeeting] = useState({});
 
   const fetchLatestMeet = async () => {
     const response = await getLatestMeet();
-    console.log(response);
+    setMeeting(response);
+    setMeetingLoading(false);
+    // console.log(response);
   };
 
   useEffect(() => {
@@ -17,8 +19,14 @@ export const MeetContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <MeetContext.Provider value={{ meet, setMeet }}>
+    <MeetContext.Provider
+      value={{ meetingLoading, setMeetingLoading, meeting, setMeeting }}
+    >
       {children}
     </MeetContext.Provider>
   );
+};
+
+export const useMeetingContext = () => {
+  return useContext(MeetContext);
 };

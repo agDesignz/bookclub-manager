@@ -1,5 +1,6 @@
 const SelectBook = ({ books, setMeetData, meetData }) => {
-  const handleSelectBook = (title) => setMeetData({ ...meetData, book: title });
+  const handleSelectBook = (title, id) =>
+    setMeetData({ ...meetData, bookTitle: title, bookId: id });
   return (
     <dialog id="select_book" className="modal">
       <form method="dialog">
@@ -9,7 +10,7 @@ const SelectBook = ({ books, setMeetData, meetData }) => {
               value={book.id}
               key={book.id}
               className="flex gap-4 lg:gap-8 justify-between items-center btn-outline px-5 py-2 border rounded-lg"
-              onClick={() => handleSelectBook(book.title)}
+              onClick={() => handleSelectBook(book.title, book.id)}
             >
               <div className="flex flex-col gap-2 lg:gap-4 items-start">
                 <h2 className="text-xl">{book.title}</h2>

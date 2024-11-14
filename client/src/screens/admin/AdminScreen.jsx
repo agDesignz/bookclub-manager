@@ -8,7 +8,6 @@ const AdminScreen = () => {
   const [users, setUsers] = useState([]);
   const [userLoading, setUserLoading] = useState(false);
   const [meetLoading, setMeetLoading] = useState(true);
-
   const [nextMeet, setNextMeet] = useState({});
   const { userData } = useAuth();
 
@@ -57,7 +56,7 @@ const AdminScreen = () => {
           {meetLoading ? (
             <span className="loading loading-bars loading-md"></span>
           ) : (
-            <CreateMeeting nextMeet={nextMeet} />
+            <CreateMeeting edit={true} />
           )}
         </div>
         {/* {userLoading ? (

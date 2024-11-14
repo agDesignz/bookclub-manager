@@ -20,11 +20,11 @@ Meeting.init(
     location: {
       type: DataTypes.STRING(150),
     },
-    bookSelection: {
-      type: DataTypes.STRING(200),
+    book_id: {
+      type: DataTypes.INTEGER,
       references: {
         model: "book",
-        key: "title",
+        key: "id",
       },
       onDelete: "CASCADE",
     },

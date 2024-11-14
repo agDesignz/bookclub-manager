@@ -16,6 +16,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import AdminRoute from "./components/admin/AdminRoute.jsx";
 import BookSearch from "./screens/BookSearch.jsx";
 import BooksScreen from "./screens/BooksScreen.jsx";
+import { MeetContextProvider } from "./context/MeetContext.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +39,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <MeetContextProvider>
+        <RouterProvider router={router} />
+      </MeetContextProvider>
     </AuthProvider>
   </StrictMode>
 );
