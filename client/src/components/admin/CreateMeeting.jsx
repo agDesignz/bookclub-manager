@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import getBooks from "../../api/getBooks";
 import SelectBook from "./SelectBook";
-import createMeeting from "../../api/createMeeting";
 import { useMeetingContext } from "../../context/MeetContext";
+import checkDate from "../../utils/checkDate";
 
 const CreateMeeting = ({ edit }) => {
   const [isEditing, setIsEditing] = useState(edit);
   const [bookLoading, setBookLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [meetData, setMeetData] = useState({});
-  const { meetingLoading, meeting, setMeeting } = useMeetingContext();
+  const { meetingLoading, meeting, newMeeting, editMeeting } =
+    useMeetingContext();
   const meetingData = {
+    id: meeting?.id,
     location: meeting?.location,
     date: meeting?.date,
     time: meeting?.time,
@@ -35,10 +37,17 @@ const CreateMeeting = ({ edit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("meetData:", meetData);
-    const newMeeting = await createMeeting(meetData);
-    console.log("newMeeting:", newMeeting);
-    setMeeting(newMeeting);
+    const dateCheck = checkDate(meetData.date);
+    if (dateCheck != "valid") {
+      alert(dateCheck);
+      return;
+    }
+    console.log(dateCheck);
+    if (isEditing) {
+      await editMeeting(meetData);
+    } else {
+      await newMeeting(meetData);
+    }
   };
 
   const editOrCreate = (e) => {
@@ -64,7 +73,7 @@ const CreateMeeting = ({ edit }) => {
         className="flex flex-col gap-4 items-center"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full justify-between">
+        <div className="flex gap-4 lg:gap-8 w-full justify-between">
           <h2>{isEditing ? "Edit Meeting" : "Create Meeting"}</h2>
           <button className="btn btn-outline btn-xs" onClick={editOrCreate}>
             {isEditing ? "New Meeting" : "Update Meeting"}
@@ -106,35 +115,18 @@ const CreateMeeting = ({ edit }) => {
         {bookLoading ? (
           <span className="loading loading-bars loading-md"></span>
         ) : (
-          <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full">
-            {/* <input
-              type="text"
-              name="book"
-              value={meetData?.bookTitle || ""}
-              placeholder="Next Book"
-              className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
-              disabled
-              onChange={handleMeetChange}
-            /> */}
+          <div className="flex flex-col sm:flex-row gap-4 lg:gap-8 w-full">
             <button
-              className="btn btn-outline w-full lg:w-1/2"
+              className="btn btn-outline w-full sm:w-1/2"
               onClick={handleSelectBook}
             >
               {meetData?.bookTitle || "Select Book"}
             </button>
-            {isEditing ? (
-              <button className="btn btn-success grow" type="submit">
-                Update Meeting
-              </button>
-            ) : (
-              <button className="btn btn-success grow" type="submit">
-                Create Meeting
-              </button>
-            )}
+            <button className="btn btn-success grow" type="submit">
+              {isEditing ? "Update Meeting" : "Create Meeting"}
+            </button>
           </div>
         )}
-
-        {/* <Alert content={alertMsg} /> */}
       </form>
       <SelectBook books={books} setMeetData={setMeetData} meetData={meetData} />
     </>

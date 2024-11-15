@@ -1,17 +1,45 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import getLatestMeet from "../api/getLatestMeet";
+import createMeeting from "../api/createMeeting";
+import updateMeeting from "../api/updateMeeting";
 
 export const MeetContext = createContext();
 
 export const MeetContextProvider = ({ children }) => {
   const [meetingLoading, setMeetingLoading] = useState(true);
-  const [meeting, setMeeting] = useState({});
+  const [meeting, setMeeting] = useState(null);
 
   const fetchLatestMeet = async () => {
-    const response = await getLatestMeet();
-    setMeeting(response);
-    setMeetingLoading(false);
-    // console.log(response);
+    try {
+      const response = await getLatestMeet();
+      setMeeting(response);
+      setMeetingLoading(false);
+      console.log("meeting:", response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const newMeeting = async (data) => {
+    try {
+      const response = await createMeeting(data);
+      if (response) {
+        setMeeting(response);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editMeeting = async (data) => {
+    try {
+      const response = await updateMeeting(data);
+      if (response) {
+        setMeeting(response);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -20,7 +48,13 @@ export const MeetContextProvider = ({ children }) => {
 
   return (
     <MeetContext.Provider
-      value={{ meetingLoading, setMeetingLoading, meeting, setMeeting }}
+      value={{
+        meetingLoading,
+        setMeetingLoading,
+        meeting,
+        newMeeting,
+        editMeeting,
+      }}
     >
       {children}
     </MeetContext.Provider>

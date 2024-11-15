@@ -1,3 +1,4 @@
+import checkDate from "../utils/checkDate";
 import updateObjectDate from "../utils/formatDate";
 
 const getLatestMeet = async () => {
@@ -5,6 +6,10 @@ const getLatestMeet = async () => {
     const query = await fetch("api/meeting/latest");
     if (query.ok) {
       const response = await query.json();
+      const dateCheck = checkDate(response.date);
+      if (dateCheck != "valid") {
+        return null;
+      }
       const latestMeetData = updateObjectDate(response);
       return latestMeetData;
     }

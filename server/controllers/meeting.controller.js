@@ -64,4 +64,26 @@ const createMeeting = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Create Next Meeting
+// @route PUT /api/meeting
+// @access Admin
+const updateMeeting = asyncHandler(async (req, res) => {
+  const { id, date, time, location, book_id } = req.body;
+  try {
+    const meetingEdit = await Meeting.findByPk(id);
+    if (meetingEdit) {
+      meetingEdit.date = date;
+      meetingEdit.time = time;
+      meetingEdit.location = location;
+      meetingEdit.book_id = book_id;
+    } else {
+      res.status(404);
+      throw new Error("Meeting not found");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "server error" });
+  }
+});
+
 module.exports = { getAllMeets, getNextMeet, createMeeting };
