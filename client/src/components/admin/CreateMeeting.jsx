@@ -61,6 +61,7 @@ const CreateMeeting = ({ edit }) => {
   };
 
   useEffect(() => {
+    setIsEditing(meeting);
     fetchBooks();
     if (isEditing) {
       setMeetData(meetingData);
