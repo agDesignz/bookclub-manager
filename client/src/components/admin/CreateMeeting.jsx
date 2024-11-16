@@ -16,8 +16,8 @@ const CreateMeeting = ({ edit }) => {
     location: meeting?.location,
     date: meeting?.date,
     time: meeting?.time,
-    bookId: meeting?.book.id,
-    bookTitle: meeting?.book.title,
+    bookId: meeting?.book?.id,
+    bookTitle: meeting?.book?.title,
   };
 
   const handleMeetChange = (e) => {
@@ -37,12 +37,12 @@ const CreateMeeting = ({ edit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Date in State:", meetData.date);
     const dateCheck = checkDate(meetData.date);
     if (dateCheck != "valid") {
       alert(dateCheck);
       return;
     }
-    console.log(dateCheck);
     if (isEditing) {
       await editMeeting(meetData);
     } else {

@@ -24,6 +24,7 @@ export const MeetContextProvider = ({ children }) => {
     try {
       const response = await createMeeting(data);
       if (response) {
+        console.log("new response:", response);
         setMeeting(response);
       }
     } catch (error) {
@@ -35,6 +36,7 @@ export const MeetContextProvider = ({ children }) => {
     try {
       const response = await updateMeeting(data);
       if (response) {
+        console.log("edit response:", response);
         setMeeting(response);
       }
     } catch (error) {

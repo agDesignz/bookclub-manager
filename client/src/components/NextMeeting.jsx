@@ -17,17 +17,17 @@ const NextMeeting = () => {
           <div className="card-body">
             <div className="flex gap-4 md:gap-8">
               <div className="flex flex-col">
-                <h2>Next Book: {meeting.book.title}</h2>
-                <h2>Next Meeting: {meeting.date}</h2>
-                <h2>Meeting Time: {meeting.time}</h2>
-                <h2>Meeting at: {meeting.location}</h2>
+                <h2>Next Book: {meeting?.book?.title || "TBA"}</h2>
+                <h2>Next Meeting: {meeting?.date || "TBA"}</h2>
+                <h2>Meeting Time: {meeting?.time || "TBA"}</h2>
+                <h2>Meeting at: {meeting?.location || "TBA"}</h2>
               </div>
               <div className="flex flex-col justify-between items-center">
                 <figure>
                   <img
                     className=""
-                    src={`https://covers.openlibrary.org/b/id/${meeting.book.cover}-S.jpg`}
-                    alt={`Cover image of ${meeting.book.title}`}
+                    src={`https://covers.openlibrary.org/b/id/${meeting?.book?.cover}-S.jpg`}
+                    alt={`Cover image of ${meeting?.book?.title}`}
                   />
                 </figure>
               </div>

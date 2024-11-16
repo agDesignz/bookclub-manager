@@ -18,6 +18,7 @@ const updateMeeting = async (input) => {
     }
     const response = await query.json();
     const result = updateObjectDate(response);
+    console.log("result:", result);
     return result;
   } catch (error) {
     console.log("error during fetch:", error);

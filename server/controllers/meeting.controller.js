@@ -56,9 +56,6 @@ const createMeeting = asyncHandler(async (req, res) => {
     const selectedBook = await Book.findByPk(book_id);
     if (selectedBook) {
       selectedBook.update({ finished: true });
-    } else {
-      res.status(401);
-      throw new Error("Could not update book");
     }
     const meetingAndBook = await Meeting.findOne({
       where: { id: newMeeting.id },
@@ -79,10 +76,17 @@ const updateMeeting = asyncHandler(async (req, res) => {
   try {
     const meetingEdit = await Meeting.findByPk(id);
     if (meetingEdit) {
-      meetingEdit.date = date;
-      meetingEdit.time = time;
-      meetingEdit.location = location;
-      meetingEdit.book_id = book_id;
+      await meetingEdit.update({
+        date: date,
+        time: time,
+        location: location,
+        book_id: book_id,
+      });
+      const meetingAndBook = await Meeting.findOne({
+        where: { id: id },
+        include: Book,
+      });
+      res.status(201).json(meetingAndBook);
     } else {
       res.status(404);
       throw new Error("Meeting not found");
@@ -93,4 +97,8 @@ const updateMeeting = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getAllMeets, getNextMeet, createMeeting };
+// @desc Update Next Meeting
+// @route PUT /api/meeting
+// @access Admin
+
+module.exports = { getAllMeets, getNextMeet, createMeeting, updateMeeting };

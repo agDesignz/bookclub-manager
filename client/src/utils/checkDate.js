@@ -7,6 +7,9 @@ const checkDate = (date) => {
     return "Invalid date";
   }
 
+  // Normalize input date to local date (midnight)
+  inputDate.setHours(0, 0, 0, 0);
+
   // Get today's date without the time portion (to compare dates accurately)
   const today = new Date();
   today.setHours(0, 0, 0, 0);
