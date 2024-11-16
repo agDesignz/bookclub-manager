@@ -53,6 +53,13 @@ const createMeeting = asyncHandler(async (req, res) => {
       book_id,
     });
 
+    const selectedBook = await Book.findByPk(book_id);
+    if (selectedBook) {
+      selectedBook.update({ finished: true });
+    } else {
+      res.status(401);
+      throw new Error("Could not update book");
+    }
     const meetingAndBook = await Meeting.findOne({
       where: { id: newMeeting.id },
       include: Book,
@@ -64,7 +71,7 @@ const createMeeting = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Create Next Meeting
+// @desc Update Next Meeting
 // @route PUT /api/meeting
 // @access Admin
 const updateMeeting = asyncHandler(async (req, res) => {

@@ -8,6 +8,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const getAllBooks = asyncHandler(async (req, res) => {
   try {
     const books = await Book.findAll({
+      where: { finished: false },
       include: [
         {
           model: User,

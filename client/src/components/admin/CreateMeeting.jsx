@@ -76,9 +76,11 @@ const CreateMeeting = ({ edit }) => {
       >
         <div className="flex gap-4 lg:gap-8 w-full justify-between">
           <h2>{isEditing ? "Edit Meeting" : "Create Meeting"}</h2>
-          <button className="btn btn-outline btn-xs" onClick={editOrCreate}>
-            {isEditing ? "New Meeting" : "Update Meeting"}
-          </button>
+          {meeting && (
+            <button className="btn btn-outline btn-xs" onClick={editOrCreate}>
+              {isEditing ? "New Meeting" : "Update Meeting"}
+            </button>
+          )}
         </div>
         <label hidden htmlFor="email">
           Location
