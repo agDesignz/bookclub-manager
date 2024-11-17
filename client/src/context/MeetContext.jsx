@@ -44,6 +44,30 @@ export const MeetContextProvider = ({ children }) => {
     }
   };
 
+  const deleteMeeting = async (id, book_id) => {
+    // const data = { id, book_id };
+    try {
+      const query = await fetch("/api/meeting", {
+        method: "DELETE",
+        body: JSON.stringify({ id, book_id }),
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+      });
+      if (!query.ok) {
+        const errorData = await query.json();
+        throw new Error(errorData.error);
+      }
+      const result = await query.json();
+      setMeeting(null);
+      return result;
+    } catch (error) {
+      console.log("deleteMeeting error:", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     fetchLatestMeet();
   }, []);
@@ -56,6 +80,7 @@ export const MeetContextProvider = ({ children }) => {
         meeting,
         newMeeting,
         editMeeting,
+        deleteMeeting,
       }}
     >
       {children}

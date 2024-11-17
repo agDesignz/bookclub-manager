@@ -97,8 +97,30 @@ const updateMeeting = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Update Next Meeting
-// @route PUT /api/meeting
+// @desc Delete meeting
+// @route DELETE /api/meeting
 // @access Admin
+const deleteMeeting = asyncHandler(async (req, res) => {
+  console.log("req body:", req.body);
+  const { id, book_id } = req.body;
+  try {
+    const book = await Book.findByPk(book_id);
+    if (book) {
+      book.update({ finished: false });
+    }
+    const meeting = await Meeting.findByPk(id);
+    meeting.destroy();
+    res.status(201).json("Meeting Deleted");
+  } catch (error) {
+    res.status(404);
+    throw new Error("Book not found");
+  }
+});
 
-module.exports = { getAllMeets, getNextMeet, createMeeting, updateMeeting };
+module.exports = {
+  getAllMeets,
+  getNextMeet,
+  createMeeting,
+  updateMeeting,
+  deleteMeeting,
+};

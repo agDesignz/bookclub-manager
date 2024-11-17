@@ -5,20 +5,12 @@ import { useMeetingContext } from "../../context/MeetContext";
 import checkDate from "../../utils/checkDate";
 
 const CreateMeeting = ({ edit }) => {
-  const [isEditing, setIsEditing] = useState(edit);
+  const { meeting, newMeeting, editMeeting, deleteMeeting } =
+    useMeetingContext();
+  const [isEditing, setIsEditing] = useState(meeting);
   const [bookLoading, setBookLoading] = useState(true);
   const [books, setBooks] = useState([]);
-  const [meetData, setMeetData] = useState({});
-  const { meetingLoading, meeting, newMeeting, editMeeting } =
-    useMeetingContext();
-  const meetingData = {
-    id: meeting?.id,
-    location: meeting?.location,
-    date: meeting?.date,
-    time: meeting?.time,
-    bookId: meeting?.book?.id,
-    bookTitle: meeting?.book?.title,
-  };
+  const [meetData, setMeetData] = useState(isEditing ? meeting : {});
 
   const handleMeetChange = (e) => {
     setMeetData({ ...meetData, [e.target.name]: e.target.value });
@@ -50,23 +42,34 @@ const CreateMeeting = ({ edit }) => {
     }
   };
 
-  const editOrCreate = (e) => {
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    console.log("delete data:", meeting.id, meeting.book_id);
+    const response = await deleteMeeting(meeting.id, meeting.book_id);
+    console.log("delete response:", response);
+  };
+
+  const toggleEditing = (e) => {
     e.preventDefault();
     if (isEditing) {
       setMeetData({});
     } else {
-      setMeetData(meetingData);
+      setMeetData(meeting);
     }
     setIsEditing(!isEditing);
   };
 
   useEffect(() => {
-    setIsEditing(meeting);
+    // setIsEditing(meeting);
     fetchBooks();
-    if (isEditing) {
-      setMeetData(meetingData);
-    }
+    // if (isEditing) {
+    //   setMeetData(meeting);
+    // }
   }, []);
+
+  useEffect(() => {
+    setMeetData(meeting);
+  }, [meeting]);
 
   return (
     <>
@@ -74,10 +77,17 @@ const CreateMeeting = ({ edit }) => {
         className="flex flex-col gap-4 items-center"
         onSubmit={handleSubmit}
       >
-        <div className="flex gap-4 lg:gap-8 w-full justify-between">
-          <h2>{isEditing ? "Edit Meeting" : "Create Meeting"}</h2>
+        <div className="flex gap-4 lg:gap-8 w-full">
+          <h2 className="grow">
+            {isEditing ? "Edit Meeting" : "Create Meeting"}
+          </h2>
+          {isEditing && (
+            <button className="btn btn-error btn-xs" onClick={handleDelete}>
+              Delete Meeting
+            </button>
+          )}
           {meeting && (
-            <button className="btn btn-outline btn-xs" onClick={editOrCreate}>
+            <button className="btn btn-outline btn-xs" onClick={toggleEditing}>
               {isEditing ? "New Meeting" : "Update Meeting"}
             </button>
           )}

@@ -5,6 +5,7 @@ const {
   getNextMeet,
   createMeeting,
   updateMeeting,
+  deleteMeeting,
 } = require("../../controllers/meeting.controller");
 
 const { protect, admin } = require("../../middleware/authMiddleware");
@@ -13,6 +14,7 @@ const { protect, admin } = require("../../middleware/authMiddleware");
 router.get("/", protect, getAllMeets);
 router.post("/", protect, admin, createMeeting);
 router.put("/", protect, admin, updateMeeting);
+router.delete("/", protect, admin, deleteMeeting);
 router.get("/latest", protect, getNextMeet);
 
 module.exports = router;

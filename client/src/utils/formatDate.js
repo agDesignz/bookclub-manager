@@ -1,10 +1,8 @@
 const updateObjectDate = (obj) => {
   if (!obj.date) return "No Object Date";
-  console.log("pre-format:", obj.date);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the date string
-    console.log("date (raw):", date);
 
     // Extract UTC components
     const year = date.getUTCFullYear();
@@ -16,7 +14,6 @@ const updateObjectDate = (obj) => {
   };
 
   obj.date = formatDate(obj.date);
-  console.log("returning formatted:", obj.date);
   return obj;
 };
 
