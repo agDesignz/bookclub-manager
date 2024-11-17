@@ -2,9 +2,9 @@ const SelectBook = ({ books, setMeetData, meetData }) => {
   const handleSelectBook = (title, id) =>
     setMeetData({ ...meetData, bookTitle: title, bookId: id });
   return (
-    <dialog id="select_book" className="modal">
+    <dialog id="select_book" className="modal overflow-y-auto">
       <form method="dialog">
-        <div className="flex flex-col gap-4 p-4 bg-slate-950 h-full w-full justify-center">
+        <div className="flex flex-col gap-4 p-4 bg-slate-950 h-full w-full justify-center overflow-auto">
           {books.map((book) => (
             <button
               value={book.id}
