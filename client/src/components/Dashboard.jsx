@@ -24,6 +24,16 @@ const Dashboard = () => {
             </div>
           </div>
         </Link>
+
+        <Link to="/archive">
+          <div className="card bg-primary text-primary-content">
+            <div className="card-body">
+              <h2 className="card-title">Archives</h2>
+              <p>Past meetings and books</p>
+              <div className="card-actions justify-end"></div>
+            </div>
+          </div>
+        </Link>
       </div>
     </section>
   );

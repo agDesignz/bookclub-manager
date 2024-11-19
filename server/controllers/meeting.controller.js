@@ -6,7 +6,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 // @access Private
 const getAllMeets = asyncHandler(async (req, res) => {
   try {
-    const meets = await NextMeet.findAll({
+    const meets = await Meeting.findAll({
       include: Book,
     });
     if (meets) {

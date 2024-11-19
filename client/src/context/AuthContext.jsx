@@ -57,7 +57,6 @@ export const AuthProvider = ({ children }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        // console.log("data:", data);
         setUserData(data);
         setIsLoggedIn(true);
       } else {
@@ -75,12 +74,12 @@ export const AuthProvider = ({ children }) => {
     checkLoginStatus();
   }, []);
 
-  // To log the updated `userData` after it changes
+  // Recheck login status only when it changes
   useEffect(() => {
-    if (Object.keys(userData).length > 0) {
-      // console.log("userData has been updated:", userData);
+    if (isLoggedIn) {
+      checkLoginStatus(); // Validate status after login/logout
     }
-  }, [userData]);
+  }, [isLoggedIn]);
 
   return (
     <AuthContext.Provider

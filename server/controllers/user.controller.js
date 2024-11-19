@@ -1,8 +1,7 @@
-const User = require('../models/User');
-const asyncHandler = require('../middleware/asyncHandler');
-const generateToken = require('../utils/generateToken');
-const jwt = require('jsonwebtoken');
-
+const User = require("../models/User");
+const asyncHandler = require("../middleware/asyncHandler");
+const generateToken = require("../utils/generateToken");
+const jwt = require("jsonwebtoken");
 
 // @desc Register User
 // @route POST /api/user
@@ -13,26 +12,28 @@ const userRegister = asyncHandler(async (req, res) => {
   const [user, created] = await User.findOrCreate({
     where: { email: email },
     defaults: {
-      email, username, password: password
-    }
+      email,
+      username,
+      password: password,
+    },
   });
 
   if (!created) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error("User already exists");
   }
 
   if (user) {
-    generateToken(res, user.id)
+    generateToken(res, user.id);
     res.status(201).json({
       id: user.id,
       username: user.username,
       email: user.email,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error("Invalid user data");
   }
 });
 
@@ -48,11 +49,11 @@ const userLogin = asyncHandler(async (req, res) => {
       id: user.id,
       username: user.username,
       email: user.email,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error("Invalid email or password");
   }
 });
 
@@ -69,7 +70,12 @@ const authCheck = asyncHandler(async (req, res) => {
       if (!user) {
         res.status(401).json({ message: "Unauthorized: User not found" });
       } else {
-        res.status(200).json({ id: user.id, username: user.username, email: user.email, isAdmin: user.isAdmin });
+        res.status(200).json({
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          isAdmin: user.isAdmin,
+        });
       }
     } catch (err) {
       res.status(401).json({ message: "Unauthorized: Invalid token" });
@@ -83,11 +89,11 @@ const authCheck = asyncHandler(async (req, res) => {
 // @route POST /api/user/logout
 // @access Public
 const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', {
+  res.cookie("jwt", "", {
     httpOnly: true,
-    expires: new Date(0)
+    expires: new Date(0),
   });
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 // @desc Get user profile
@@ -101,11 +107,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route PUT /api/user/profile
 // @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findByPk(req.user.id);  // Use findByPk for Sequelize
+  const user = await User.findByPk(req.user.id); // Use findByPk for Sequelize
 
   if (user) {
     // Update user details, using the provided data or keep existing values
-    user.username = req.body.username || user.username;  // Renamed from 'name' to 'username'
+    user.username = req.body.username || user.username; // Renamed from 'name' to 'username'
     user.email = req.body.email || user.email;
 
     // Update password if provided
@@ -118,14 +124,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     // Respond with updated user details
     res.status(200).json({
-      id: updatedUser.id,      // Sequelize uses 'id' instead of '_id'
-      username: updatedUser.username,  // Renamed field
+      id: updatedUser.id, // Sequelize uses 'id' instead of '_id'
+      username: updatedUser.username, // Renamed field
       email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin
+      isAdmin: updatedUser.isAdmin,
     });
   } else {
     res.status(400);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -137,7 +143,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @route GET /api/allusers
 // @access Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  const users = await User.findAll({ attributes: { exclude: ["password"] } });
   res.status(200).json(users);
 });
 
@@ -146,7 +152,6 @@ const getUsers = asyncHandler(async (req, res) => {
 // @access Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
   // const user = await User.findById(req.params.id).select('-password');
-
   // if (user) {
   //   res.json(user);
   // } else {
@@ -160,7 +165,6 @@ const getUserById = asyncHandler(async (req, res) => {
 // @access Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
   // const user = await User.findById(req.params.id);
-
   // if (user) {
   //   if (user.isAdmin) {
   //     res.status(400);
@@ -179,14 +183,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @access Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
   // const user = await User.findById(req.params.id);
-
   // if (user) {
   //   user.name = req.body.name || user.name;
   //   user.email = req.body.email || user.email;
   //   user.isAdmin = Boolean(req.body.isAdmin);
-
   //   const updatedUser = await user.save();
-
   //   res.json({
   //     _id: updatedUser._id,
   //     name: updatedUser.name,
@@ -209,5 +210,5 @@ module.exports = {
   getUsers,
   getUserById,
   deleteUser,
-  updateUser
+  updateUser,
 };
