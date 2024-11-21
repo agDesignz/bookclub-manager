@@ -1,6 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
+const sequelize = require("../config/connection");
 
 class User extends Model {
   matchPassword = async function (enteredPassword) {
@@ -14,12 +14,12 @@ User.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      unique: true
+      unique: true,
     },
     username: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -35,25 +35,30 @@ User.init(
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    }
-  }, {
-
-  hooks: {
-    beforeCreate: async (user) => {
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(user.password, salt);
     },
-    beforeUpdate: async (user) => {
-      if (user.changed('password')) {
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
-      }
+    isApproved: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
-  sequelize,
-  timestamps: false,
-  freezeTableName: true,
-  modelName: 'user'
-});
+  {
+    hooks: {
+      beforeCreate: async (user) => {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed("password")) {
+          const salt = await bcrypt.genSalt(10);
+          user.password = await bcrypt.hash(user.password, salt);
+        }
+      },
+    },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    modelName: "user",
+  }
+);
 
 module.exports = User;
