@@ -1,11 +1,11 @@
-import updateObjectDate from "../utils/formatDate";
+import updateObjectDate from "../../utils/formatDate";
 
-const updateMeeting = async (input) => {
-  const { id, date, time, location, bookId: book_id } = input;
+const createMeeting = async (input) => {
+  const { date, time, location, bookId: book_id } = input;
   try {
     const query = await fetch("/api/meeting", {
-      method: "PUT",
-      body: JSON.stringify({ id, date, time, location, book_id }),
+      method: "POST",
+      body: JSON.stringify({ date, time, location, book_id }),
       headers: {
         "Content-type": "application/json",
       },
@@ -18,7 +18,6 @@ const updateMeeting = async (input) => {
     }
     const response = await query.json();
     const result = updateObjectDate(response);
-    console.log("result:", result);
     return result;
   } catch (error) {
     console.log("error during fetch:", error);
@@ -26,4 +25,4 @@ const updateMeeting = async (input) => {
   }
 };
 
-export default updateMeeting;
+export default createMeeting;

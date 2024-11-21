@@ -75,6 +75,7 @@ const authCheck = asyncHandler(async (req, res) => {
           username: user.username,
           email: user.email,
           isAdmin: user.isAdmin,
+          isApproved: user.isApproved,
         });
       }
     } catch (err) {
@@ -178,10 +179,10 @@ const deleteUser = asyncHandler(async (req, res) => {
   // }
 });
 
-// @desc Update User (Admin)
-// @route PUT /api/user/:id
+// @desc Approve User
+// @route PUT /api/user/approve
 // @access Private/Admin
-const updateUser = asyncHandler(async (req, res) => {
+const approveUser = asyncHandler(async (req, res) => {
   // const user = await User.findById(req.params.id);
   // if (user) {
   //   user.name = req.body.name || user.name;
@@ -200,6 +201,32 @@ const updateUser = asyncHandler(async (req, res) => {
   // }
 });
 
+// @desc Update User (Admin)
+// @route PUT /api/user/:id
+// @access Private/Admin
+const updateUser = asyncHandler(async (req, res) => {
+  console.log("params:", req.params.id);
+  console.log("data:", req.body);
+  const user = await User.findByPk(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin) || user.isAdmin;
+    user.isApproved = Boolean(req.body.isApproved) || user.isApproved;
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      isApproved: updatedUser.isApproved,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 module.exports = {
   userLogin,
   userRegister,
@@ -211,4 +238,5 @@ module.exports = {
   getUserById,
   deleteUser,
   updateUser,
+  approveUser,
 };

@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-// import getLatestMeet from "../api/getLatestMeet";
+// import getLatestMeet from "../api/meetings/getLatestMeet";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useMeetingContext } from "../context/MeetContext";

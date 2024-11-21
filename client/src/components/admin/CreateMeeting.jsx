@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getBooks from "../../api/getBooks";
+import getBooks from "../../api/books/getBooks";
 import SelectBook from "./SelectBook";
 import { useMeetingContext } from "../../context/MeetContext";
 import checkDate from "../../utils/checkDate";

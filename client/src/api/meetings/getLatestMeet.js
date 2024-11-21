@@ -1,5 +1,5 @@
-import checkDate from "../utils/checkDate";
-import updateObjectDate from "../utils/formatDate";
+import checkDate from "../../utils/checkDate";
+import updateObjectDate from "../../utils/formatDate";
 
 const getLatestMeet = async () => {
   try {

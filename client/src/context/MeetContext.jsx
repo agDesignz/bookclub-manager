@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import getLatestMeet from "../api/getLatestMeet";
-import createMeeting from "../api/createMeeting";
-import updateMeeting from "../api/updateMeeting";
+import getLatestMeet from "../api/meetings/getLatestMeet";
+import createMeeting from "../api/meetings/createMeeting";
+import updateMeeting from "../api/meetings/updateMeeting";
 
 export const MeetContext = createContext();
 

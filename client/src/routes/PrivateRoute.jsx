@@ -8,7 +8,7 @@ const PrivateRoute = () => {
     return <span className="loading loading-bars loading-lg"></span>;
   }
 
-  return (isLoggedIn && userData.isLoggedIn) || userData.isAdmin ? (
+  return (isLoggedIn && userData.isApproved) || userData.isAdmin ? (
     <Outlet />
   ) : (
     <Navigate to="/" />

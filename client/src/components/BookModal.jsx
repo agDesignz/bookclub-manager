@@ -1,5 +1,5 @@
 import { useState } from "react";
-import suggestBook from "../api/suggestBook";
+import suggestBook from "../api/books/suggestBook";
 import { useAuth } from "../context/AuthContext";
 import Alert from "./Alert";
 import Success from "./Success";

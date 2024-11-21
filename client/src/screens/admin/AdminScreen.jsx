@@ -1,33 +1,29 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import getMeets from "../../api/getMeets";
-import getLatestMeet from "../../api/getLatestMeet";
+import getMeets from "../../api/meetings/getMeets";
+import getLatestMeet from "../../api/meetings/getLatestMeet";
 import CreateMeeting from "../../components/admin/CreateMeeting";
+// import getUsers from "../../api/users/getUsers";
+import UserList from "../../components/admin/UserList";
 
 const AdminScreen = () => {
-  const [users, setUsers] = useState([]);
-  const [userLoading, setUserLoading] = useState(false);
+  // const [users, setUsers] = useState([]);
+  // const [userLoading, setUserLoading] = useState(false);
   const [meetLoading, setMeetLoading] = useState(true);
   const [nextMeet, setNextMeet] = useState({});
   const { userData } = useAuth();
 
-  const getAllUsers = async () => {
-    setUserLoading(true);
-    try {
-      const query = await fetch("/api/user/users", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (query.ok) {
-        const payload = await query.json();
-        setUsers(payload);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setUserLoading(false);
-    }
-  };
+  // const getAllUsers = async () => {
+  //   setUserLoading(true);
+  //   try {
+  //     const payload = await getUsers();
+  //     if (payload) setUsers(payload);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setUserLoading(false);
+  //   }
+  // };
 
   // const fetchMeets = async () => {
   //   const meets = await getMeets();
@@ -44,20 +40,27 @@ const AdminScreen = () => {
     fetchLatestMeet();
   }, []);
 
-  useEffect(() => {
-    getAllUsers();
-    // fetchLatestMeet();
-  }, [userData]);
+  // useEffect(() => {
+  //   getAllUsers();
+  //   // fetchLatestMeet();
+  // }, [userData]);
 
   return (
     <div className="grow h-full">
-      <div className="flex flex-wrap lg:justify-center">
+      <div className="flex flex-col lg:flex-row gap-8">
         <div className="w-full lg:w-1/2">
           {meetLoading ? (
             <span className="loading loading-bars loading-md"></span>
           ) : (
             <CreateMeeting edit={true} />
           )}
+        </div>
+        <div className="w-full lg:w-1/2">
+          <UserList
+          // users={users}
+          // setUsers={setUsers}
+          // setUserLoading={setUserLoading}
+          />
         </div>
         {/* {userLoading ? (
           <span className="loading loading-bars loading-md"></span>

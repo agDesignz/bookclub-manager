@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import scrollToTop from "../utils/ScrollTop";
-import fetchBookData from "../api/fetchBookData";
+import fetchBookData from "../api/external/fetchBookData";
 import SearchResults from "../components/SearchResults";
 
 const BookSearch = () => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BookModal from "./BookModal";
-import fetchBookDescription from "../api/fetchBookDescription";
+import fetchBookDescription from "../api/external/fetchBookDescription";
 
 const SearchResults = ({ searchResults, handlePageChange, page }) => {
   const [modalData, setModalData] = useState({});

@@ -7,6 +7,10 @@ import { useEffect } from "react";
 const Home = () => {
   const { isLoggedIn, userData } = useAuth();
 
+  useEffect(() => {
+    console.log("userData:", userData);
+  }, []);
+
   return (
     <div className="grow flex flex-col items-center">
       {isLoggedIn ? (

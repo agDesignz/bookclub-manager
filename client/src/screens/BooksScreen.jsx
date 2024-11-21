@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-import deleteBook from "../api/deleteBook";
-import getBooks from "../api/getBooks";
+import deleteBook from "../api/books/deleteBook";
+import getBooks from "../api/books/getBooks";
 import BookCard from "../components/BookCard";
-import castVote from "../api/castVote";
-import deleteVote from "../api/deleteVote";
+import castVote from "../api/votes/castVote";
+import deleteVote from "../api/votes/deleteVote";
 
 const BooksScreen = () => {
   const [books, setBooks] = useState([]);
