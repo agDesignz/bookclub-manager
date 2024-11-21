@@ -1,19 +1,23 @@
 import Dashboard from "../components/Dashboard";
 import Landing from "../components/Landing";
+import AwaitApproval from "../components/AwaitApproval";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 
 const Home = () => {
   const { isLoggedIn, userData } = useAuth();
 
-  useEffect(() => {
-    if (Object.keys(userData).length > 0) {
-    }
-  }, [userData]); // This will run whenever userData changes
-
   return (
     <div className="grow flex flex-col items-center">
-      {isLoggedIn ? <Dashboard /> : <Landing />}
+      {isLoggedIn ? (
+        userData.isApproved || userData.isAdmin ? (
+          <Dashboard />
+        ) : (
+          <AwaitApproval />
+        )
+      ) : (
+        <Landing />
+      )}
     </div>
   );
 };
