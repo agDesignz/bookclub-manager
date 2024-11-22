@@ -12,7 +12,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="grow flex flex-col items-center">
+    <div className="home h-full md:my-auto">
       {isLoggedIn ? (
         userData.isApproved || userData.isAdmin ? (
           <Dashboard />
