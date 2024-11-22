@@ -1,12 +1,27 @@
-const DescriptionModal = ({ bookDescription, modalId }) => {
+const DescriptionModal = ({
+  bookCover,
+  bookTitle,
+  bookDescription,
+  modalId,
+}) => {
   return (
-    <div className="grow py-2">
+    <div className="m-auto">
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn btn-neutral font-bold text-lg"
+        className="relative"
         onClick={() => document.getElementById(modalId).showModal()}
       >
-        Read Description
+        <img
+          className="shadow-lg m-auto"
+          src={`https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`}
+          alt={`Cover image of ${bookTitle}`}
+        />
+        <div className="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-blue-950 transition-opacity duration-200 opacity-0 hover:opacity-95">
+          <p className="text-white">Read Description</p>
+        </div>
+        <p className="text-gray-800 pt-2 italic sm:hidden">
+          Click title for description
+        </p>
       </button>
       <dialog id={modalId} className="modal">
         <div className="modal-box bg-indigo-100 text-blue-950">
