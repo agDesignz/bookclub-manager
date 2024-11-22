@@ -3,38 +3,40 @@ import NextMeeting from "./NextMeeting";
 
 const Dashboard = () => {
   return (
-    <section className="dashboard container">
-      <div className="flex flex-col gap-4 items-stretch">
+    <section className="dashboard container grid gap-2 sm:gap-4 grid-cols-1 lg:grid-cols-2">
+      {/* <div className="flex flex-col gap-4 items-stretch"> */}
+      <div className="lg:row-span-3">
         <NextMeeting />
-        <Link to="/search">
-          <div className="card bg-primary text-primary-content">
-            <div className="card-body">
-              <h2 className="card-title">Book Search</h2>
-              <p>Placeholder for a book search option</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link to="/suggestions">
-          <div className="card bg-primary text-primary-content">
-            <div className="card-body">
-              <h2 className="card-title">Vote for books</h2>
-              <p>Select the next book</p>
-              <div className="card-actions justify-end"></div>
-            </div>
-          </div>
-        </Link>
-
-        <Link to="/archive">
-          <div className="card bg-primary text-primary-content">
-            <div className="card-body">
-              <h2 className="card-title">Archives</h2>
-              <p>Past meetings and books</p>
-              <div className="card-actions justify-end"></div>
-            </div>
-          </div>
-        </Link>
       </div>
+      <Link to="/search">
+        <div className="card bg-primary text-primary-content">
+          <div className="card-body">
+            <h2 className="card-title">Book Search</h2>
+            <p>Placeholder for a book search option</p>
+          </div>
+        </div>
+      </Link>
+
+      <Link to="/suggestions">
+        <div className="card bg-primary text-primary-content">
+          <div className="card-body">
+            <h2 className="card-title">Vote for books</h2>
+            <p>Select the next book</p>
+            <div className="card-actions justify-end"></div>
+          </div>
+        </div>
+      </Link>
+
+      <Link to="/archive">
+        <div className="card bg-primary text-primary-content">
+          <div className="card-body">
+            <h2 className="card-title">Archives</h2>
+            <p>Past meetings and books</p>
+            <div className="card-actions justify-end"></div>
+          </div>
+        </div>
+      </Link>
+      {/* </div> */}
     </section>
   );
 };

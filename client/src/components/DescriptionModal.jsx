@@ -1,9 +1,9 @@
 const DescriptionModal = ({ bookDescription, modalId }) => {
   return (
-    <>
+    <div className="grow py-2">
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="text-left font-bold text-lg link link-hover self-start"
+        className="btn btn-neutral font-bold text-lg"
         onClick={() => document.getElementById(modalId).showModal()}
       >
         Read Description
@@ -18,7 +18,7 @@ const DescriptionModal = ({ bookDescription, modalId }) => {
           <p className="py-4 text-lg">{bookDescription}</p>
         </div>
       </dialog>
-    </>
+    </div>
   );
 };
 export default DescriptionModal;

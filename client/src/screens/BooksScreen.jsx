@@ -70,7 +70,7 @@ const BooksScreen = () => {
   // }, [books]);
 
   return (
-    <div className="mx-auto h-full container m-4">
+    <div className="mx-auto h-full m-4">
       <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
         {books.map((book) => (
           <BookCard
