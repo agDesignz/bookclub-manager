@@ -15,7 +15,7 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
 
   return (
     <div
-      className={`rounded-md p-4 text-blue-950 shadow-xl transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#fde68a]  to-[#ffbb46] ${
+      className={`rounded-lg p-4 shadow-xl transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-600  to-amber-800 text-slate-100 ${
         isDeleting ? "opacity-0" : "opacity-100"
       }`}
     >
@@ -30,10 +30,10 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
           <div className="flex flex-col gap-2 items-center md:items-start">
             <h2 className="card-title uppercase">{book.title}</h2>
             <p>{book.author}</p>
-            <p className="italic text-amber-700">
+            <p className="badge badge-lg italic border-indigo-200 bg-indigo-200 text-amber-800 shadow-lg">
               Recommended by {user === book.user_ref ? "you" : book.user_ref}
             </p>
-            <div className="badge badge-success badge-outline badge-lg">
+            <div className="badge badge-success badge-lg shadow-lg">
               Votes: {book.voters.length}
             </div>
           </div>
@@ -41,20 +41,23 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
           <div className="flex flex-col gap-2 justify-between">
             {user === book.user_ref ? (
               <button
-                className="btn btn-outline btn-error"
+                className="btn btn-error shadow-lg"
                 onClick={handleDeleteBook}
               >
                 Delete
               </button>
             ) : hasVoted ? (
               <button
-                className="btn btn-outline btn-error"
+                className="btn btn-outline btn-error shadow-lg"
                 onClick={handleVoteDelete}
               >
                 Remove your vote
               </button>
             ) : (
-              <button className="btn btn-success" onClick={handleVote}>
+              <button
+                className="btn btn-success shadow-lg"
+                onClick={handleVote}
+              >
                 Vote for this book
               </button>
             )}

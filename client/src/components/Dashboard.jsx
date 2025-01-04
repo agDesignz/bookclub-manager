@@ -9,31 +9,20 @@ const Dashboard = () => {
         <NextMeeting />
       </div>
       <Link to="/search">
-        <div className="card bg-primary text-primary-content">
-          <div className="card-body">
-            <h2 className="card-title">Book Search</h2>
-            <p>Placeholder for a book search option</p>
-          </div>
+        <div className="rounded-xl shadow-md px-4 py-8 bg-teal-800">
+          <h2 className="text-center text-2xl">Book Search</h2>
         </div>
       </Link>
 
       <Link to="/suggestions">
-        <div className="card bg-primary text-primary-content">
-          <div className="card-body">
-            <h2 className="card-title">Vote for books</h2>
-            <p>Select the next book</p>
-            <div className="card-actions justify-end"></div>
-          </div>
+        <div className="rounded-xl shadow-md px-4 py-8 bg-amber-700">
+          <h2 className="text-center text-2xl">Book Suggestions</h2>
         </div>
       </Link>
 
       <Link to="/archive">
-        <div className="card bg-primary text-primary-content">
-          <div className="card-body">
-            <h2 className="card-title">Archives</h2>
-            <p>Past meetings and books</p>
-            <div className="card-actions justify-end"></div>
-          </div>
+        <div className="rounded-xl shadow-md px-4 py-8 bg-violet-900">
+          <h2 className="text-center text-2xl">Archives</h2>
         </div>
       </Link>
       {/* </div> */}

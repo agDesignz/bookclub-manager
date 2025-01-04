@@ -12,14 +12,14 @@ const DescriptionModal = ({
         onClick={() => document.getElementById(modalId).showModal()}
       >
         <img
-          className="shadow-lg m-auto"
+          className="shadow-lg m-auto rounded-lg"
           src={`https://covers.openlibrary.org/b/id/${bookCover}-M.jpg`}
           alt={`Cover image of ${bookTitle}`}
         />
         <div className="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-blue-950 transition-opacity duration-200 opacity-0 hover:opacity-95">
           <p className="text-white">Read Description</p>
         </div>
-        <p className="text-gray-800 pt-2 italic sm:hidden">
+        <p className="pt-2 italic sm:hidden text-slate-100">
           Click title for description
         </p>
       </button>
