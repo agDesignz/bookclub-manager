@@ -14,7 +14,7 @@ const NextMeeting = () => {
       {meetingLoading ? (
         <h2>Still Loading</h2>
       ) : meeting ? (
-        <div className="flex flex-col items-center md:items-start gap-4 md:gap-6 w-full">
+        <div className="flex flex-col md:items-start gap-4 md:gap-6 w-full items-stretch">
           {/* <div className="flex gap-4 mb-4 md:mb-6 justify-center"> */}
           <div className="flex flex-col md:grow">
             <h2 className="text-3xl">{meeting?.book?.title || "TBA"}</h2>
