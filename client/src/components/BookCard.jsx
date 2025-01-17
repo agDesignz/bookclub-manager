@@ -20,17 +20,21 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
       }`}
     >
       <div className="grid md:grid-cols-2 gap-4">
-        <DescriptionModal
-          bookCover={book.cover}
-          bookTitle={book.title}
-          bookDescription={book.description}
-          modalId={`modal_${book.id}`}
-        />
+        <div className="m-auto">
+          <DescriptionModal
+            bookCover={book.cover}
+            bookTitle={book.title}
+            bookDescription={book.description}
+            modalId={`modal_${book.id}`}
+          />
+          <p>Click for description</p>
+        </div>
+
         <div className="flex flex-col gap-4 md:gap-6">
           <div className="flex flex-col gap-2 items-center md:items-start">
             <h2 className="card-title uppercase">{book.title}</h2>
             <p>{book.author}</p>
-            <p className="badge badge-lg italic border-indigo-200 bg-indigo-200 text-amber-800 shadow-lg">
+            <p className="badge badge-lg italic border-indigo-200 bg-indigo-200 text-amber-800 shadow-lg h-auto text-center">
               Recommended by {user === book.user_ref ? "you" : book.user_ref}
             </p>
             <div className="badge badge-success badge-lg shadow-lg">
