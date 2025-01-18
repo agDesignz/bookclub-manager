@@ -43,7 +43,7 @@ const NextMeeting = () => {
               <p>{meeting?.date || "TBA"}</p>
             </div>
             <div className="rounded-md bg-amber-700 p-2">
-              <p>{meeting?.time || "TBA"}</p>
+              <p>{meeting?.formattedTime || "TBA"}</p>
             </div>
             <div className="rounded-md bg-violet-900 p-2">
               <p className="">{meeting?.location || "TBA"}</p>

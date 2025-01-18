@@ -9,19 +9,20 @@ const SelectBook = ({ books, setMeetData, meetData }) => {
             <button
               value={book.id}
               key={book.id}
-              className="flex gap-4 lg:gap-8 justify-between items-center btn-outline px-5 py-2 border rounded-lg"
+              className="grid grid-cols-[1fr_max-content] gap-4 btn-outline px-5 py-2 border rounded-lg"
               onClick={() => handleSelectBook(book.title, book.id)}
             >
-              <div className="flex flex-col gap-2 lg:gap-4 items-start">
+              <div className="flex flex-col gap-2 lg:gap-4 items-start text-left">
                 <h2 className="text-xl">{book.title}</h2>
-                <h3 className="text-l">{book.author}</h3>
+                <h3 className="text-md italic">- {book.author}</h3>
               </div>
-              <figure>
+              <figure className="flex flex-col gap-2 items-center">
                 <img
                   className=""
                   src={`https://covers.openlibrary.org/b/id/${book.cover}-S.jpg`}
                   alt={`Cover image of ${book.title}`}
                 />
+                <figcaption>Votes: {book.voters.length}</figcaption>
               </figure>
             </button>
           ))}

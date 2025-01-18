@@ -4,7 +4,7 @@ import SelectBook from "./SelectBook";
 import { useMeetingContext } from "../../context/MeetContext";
 import checkDate from "../../utils/checkDate";
 
-const CreateMeeting = ({ edit }) => {
+const CreateMeeting = () => {
   const { meeting, newMeeting, editMeeting, deleteMeeting } =
     useMeetingContext();
   const [isEditing, setIsEditing] = useState(meeting);
@@ -19,6 +19,7 @@ const CreateMeeting = ({ edit }) => {
   const fetchBooks = async () => {
     const response = await getBooks();
     setBooks(response);
+    console.log(response);
     setBookLoading(false);
   };
 

@@ -1,5 +1,6 @@
 import checkDate from "../../utils/checkDate";
 import updateObjectDate from "../../utils/formatDate";
+import formatTime from "../../utils/formatTime";
 
 const getLatestMeet = async () => {
   try {
@@ -11,6 +12,8 @@ const getLatestMeet = async () => {
         return null;
       }
       const latestMeetData = updateObjectDate(response);
+      latestMeetData.formattedTime = formatTime(latestMeetData.time);
+      console.log("getLatestMeet", latestMeetData);
       return latestMeetData;
     }
   } catch (error) {
