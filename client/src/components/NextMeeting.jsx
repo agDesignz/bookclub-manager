@@ -10,15 +10,20 @@ const NextMeeting = () => {
   const { meetingLoading, meeting } = useMeetingContext();
 
   return (
-    <div className="flex justify-center items-center h-full md:p-0 lg:border-slate-200 lg:border lg:rounded-lg lg:p-8">
+    <div className="flex justify-center items-center h-full lg:border-slate-200 md:border rounded-lg md:p-8">
       {/* <h2 className="text-center text-2xl">Current Book</h2> */}
       {meetingLoading ? (
         <h2>Still Loading</h2>
       ) : meeting ? (
-        <div className="grid grid-cols-2 md:items-start gap-4 md:gap-6 w-full items-stretch md:grid-cols-[max-content]">
+        <div className="grid md:items-start gap-4 w-full items-stretch grid-cols-[max-content_1fr]">
           <div className="col-span-2 flex flex-col md:grow">
-            <h2 className="text-3xl">{meeting?.book?.title || "TBA"}</h2>
-            <h4>{meeting?.book?.author}</h4>
+            <h2 className="text-lg sm:text-xl">Next Meeting</h2>
+          </div>
+          <div className="col-span-2 flex flex-col md:grow">
+            <h2 className="text-2xl sm:text-3xl">
+              {meeting?.book?.title || "TBA"}
+            </h2>
+            <h4 className="text-md sm:text-lg">{meeting?.book?.author}</h4>
           </div>
           <DescriptionModal
             bookCover={meeting?.book?.cover}
@@ -33,8 +38,7 @@ const NextMeeting = () => {
             alt={`Cover image of ${meeting?.book?.title}`}
           /> */}
           {/* </figure> */}
-          <div className="flex flex-col gap-2 items-stretch text-center md:self-end">
-            <p className="text-center">Next Meeting</p>
+          <div className="flex flex-col gap-2 items-stretch text-center">
             <div className="rounded-md bg-sky-800 p-2">
               <p>{meeting?.date || "TBA"}</p>
             </div>
