@@ -14,7 +14,7 @@ export const MeetContextProvider = ({ children }) => {
       const response = await getLatestMeet();
       setMeeting(response);
       setMeetingLoading(false);
-      console.log("meeting:", response);
+      // console.log("meeting:", response);
     } catch (error) {
       console.log(error);
     }

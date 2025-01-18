@@ -3,7 +3,7 @@ const getMeets = async () => {
     const query = await fetch("api/meeting");
     if (query.ok) {
       const meetData = await query.json();
-      // console.log("meetData:", meetData);
+      console.log("meetData:", meetData);
       return meetData;
     }
   } catch (error) {

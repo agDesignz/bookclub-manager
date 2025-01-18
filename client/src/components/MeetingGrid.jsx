@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useMeetingContext } from "../context/MeetContext";
 import DescriptionModal from "./DescriptionModal";
 
-const NextMeeting = () => {
+const NextMeeting = ({ heading }) => {
   const { userData } = useAuth();
   const { meetingLoading, meeting } = useMeetingContext();
 
@@ -17,7 +17,7 @@ const NextMeeting = () => {
       ) : meeting ? (
         <div className="grid md:items-start gap-4 w-full items-stretch grid-cols-[max-content_1fr]">
           <div className="col-span-2 flex flex-col md:grow">
-            <h2 className="text-lg sm:text-xl">Next Meeting</h2>
+            <h2 className="text-lg sm:text-xl">{heading}</h2>
           </div>
           <div className="col-span-2 flex flex-col md:grow">
             <h2 className="text-2xl sm:text-3xl">
