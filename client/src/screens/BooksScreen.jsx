@@ -71,7 +71,7 @@ const BooksScreen = () => {
 
   return (
     <div className="mx-auto h-full m-4">
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
+      <div className="grid md:grid-cols-2 gap-4 md:gap-8">
         {books.map((book) => (
           <BookCard
             key={book.id}

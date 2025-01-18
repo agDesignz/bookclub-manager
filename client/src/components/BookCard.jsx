@@ -15,7 +15,7 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
 
   return (
     <div
-      className={`rounded-lg p-4 shadow-xl transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-600  to-amber-800 text-slate-100 ${
+      className={`rounded-lg p-4 shadow-xl transition-opacity duration-500 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-300/15  to-stone-500/5 text-slate-100 ${
         isDeleting ? "opacity-0" : "opacity-100"
       }`}
     >
@@ -27,14 +27,14 @@ const BookCard = ({ book, user, removeBook, handleVote, handleVoteDelete }) => {
             bookDescription={book.description}
             modalId={`modal_${book.id}`}
           />
-          <p>Click for description</p>
+          <p className="text-center text-xs">Click for description</p>
         </div>
 
         <div className="flex flex-col gap-4 md:gap-6">
           <div className="flex flex-col gap-2 items-center md:items-start">
             <h2 className="card-title uppercase">{book.title}</h2>
             <p>{book.author}</p>
-            <p className="badge badge-lg italic border-indigo-200 bg-indigo-200 text-amber-800 shadow-lg h-auto text-center">
+            <p className="italic text-amber-300 shadow-lg h-auto text-center">
               Recommended by {user === book.user_ref ? "you" : book.user_ref}
             </p>
             <div className="badge badge-success badge-lg shadow-lg">
