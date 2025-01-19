@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import getMeets from "../api/meetings/getMeets";
+import MeetingBox from "./MeetingBox";
 
 const Meetings = () => {
   const [allMeetings, setAllMeetings] = useState(null);
@@ -15,15 +16,13 @@ const Meetings = () => {
     fetchMeetingData();
   }, []);
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+    <div className="grid sm:grid-cols-2 gap-4 md:gap-8">
       {isLoading ? (
         <span className="loading loading-bars loading-md"></span>
       ) : (
-        allMeetings.map((meet) => (
-          <div key={meet.id}>
-            <h2>Date: {meet.date}</h2>
-            <h2>Location: {meet.location}</h2>
-            <h2>Book: {meet.book?.title}</h2>
+        allMeetings.map((meeting) => (
+          <div className="border-slate-200 sm:border rounded-lg p-4 md:p-8">
+            <MeetingBox meeting={meeting} />
           </div>
         ))
       )}

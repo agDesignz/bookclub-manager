@@ -1,11 +1,9 @@
+import { Link } from "react-router-dom";
 import DescriptionModal from "./DescriptionModal";
 
 const MeetingBox = ({ meeting, isAdmin = false }) => {
   return (
     <div className="grid md:items-start gap-4 w-full grid-cols-[max-content_1fr]">
-      {/* <div className="col-span-2 flex flex-col md:grow">
-        <h2 className="text-lg sm:text-xl">{heading}</h2>
-      </div> */}
       <div className="col-span-2 flex flex-col md:grow">
         <h2 className="text-2xl sm:text-3xl">
           {meeting?.book?.title || "TBA"}
