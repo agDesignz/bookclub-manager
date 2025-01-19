@@ -1,9 +1,13 @@
+import updateObjectDate from "../../utils/formatDate";
+
 const getMeets = async () => {
   try {
     const query = await fetch("api/meeting");
     if (query.ok) {
       const meetData = await query.json();
-      console.log("meetData:", meetData);
+      meetData.map((meet) => {
+        updateObjectDate(meet);
+      });
       return meetData;
     }
   } catch (error) {

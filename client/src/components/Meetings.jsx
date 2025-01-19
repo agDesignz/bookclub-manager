@@ -8,7 +8,6 @@ const Meetings = () => {
   const fetchMeetingData = async () => {
     const meetingData = await getMeets();
     setAllMeetings(meetingData);
-    console.log(meetingData);
     setIsLoading(false);
   };
 
@@ -16,19 +15,19 @@ const Meetings = () => {
     fetchMeetingData();
   }, []);
   return (
-    <>
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
       {isLoading ? (
         <span className="loading loading-bars loading-md"></span>
       ) : (
         allMeetings.map((meet) => (
-          <div key="meet.id">
+          <div key={meet.id}>
             <h2>Date: {meet.date}</h2>
             <h2>Location: {meet.location}</h2>
             <h2>Book: {meet.book?.title}</h2>
           </div>
         ))
       )}
-    </>
+    </div>
   );
 };
 export default Meetings;

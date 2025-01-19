@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import NextMeeting from "./MeetingGrid";
+import NextMeeting from "./NextMeeting";
 
 const Dashboard = () => {
   return (
     <section className="dashboard grid gap-4 sm:grid-cols-2">
       {/* <div className="md:row-start-2 md:row-span-1 md:col-start-1 md:col-span-1"> */}
-      <NextMeeting heading="Next Meeting" />
+      <NextMeeting />
       {/* </div> */}
       <div className="flex flex-col gap-2 mt-4 md:mt-0 items-stretch justify-center self-end md:self-center xl:grid xl:grid-cols-2 md:p-8">
         <Link to="/search">
