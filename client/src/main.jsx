@@ -17,7 +17,7 @@ import AdminRoute from "./routes/AdminRoute.jsx";
 import BookSearch from "./screens/BookSearch.jsx";
 import BooksScreen from "./screens/BooksScreen.jsx";
 import { MeetContextProvider } from "./context/MeetContext.jsx";
-import ArchiveMeetings from "./screens/archive.jsx";
+import MeetingArchive from "./screens/MeetingArchive.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/search" element={<BookSearch />} />
         <Route path="/suggestions" element={<BooksScreen />} />
-        <Route path="/archive" element={<ArchiveMeetings />} />
+        <Route path="/archive" element={<MeetingArchive />} />
       </Route>
 
       <Route path="" element={<AdminRoute />}>
