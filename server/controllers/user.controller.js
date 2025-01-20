@@ -41,8 +41,8 @@ const userRegister = asyncHandler(async (req, res) => {
 // @route POST /api/user/login
 // @access Public
 const userLogin = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ where: { email } });
+  const { username, password } = req.body;
+  const user = await User.findOne({ where: { username } });
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user.id);
     res.status(200).json({
@@ -53,7 +53,7 @@ const userLogin = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Invalid email or password");
+    throw new Error("Invalid username or password");
   }
 });
 

@@ -15,19 +15,19 @@ const LoginForm = () => {
     e.preventDefault();
     const result = await handleUserApi("POST", "/api/user/login", loginData);
     setLoginData({});
-    !result.ok && setAlertMsg("Invalid email or password.");
+    !result.ok && setAlertMsg("Invalid username or password.");
   };
 
   return (
     <form className="flex flex-col gap-4 items-center" onSubmit={submitLogin}>
-      <label hidden htmlFor="email">
-        Email
+      <label hidden htmlFor="username">
+        Username
       </label>
       <input
-        type="email"
-        name="email"
-        value={loginData?.email || ""}
-        placeholder="Email"
+        type="text"
+        name="username"
+        value={loginData?.username || ""}
+        placeholder="Username"
         className="border rounded-lg py-3 px-3 bg-transparent border-indigo-600 placeholder-white-500 text-white w-full"
         onChange={handleLoginChange}
       />
