@@ -8,7 +8,7 @@ const Home = () => {
   const { isLoggedIn, userData } = useAuth();
 
   useEffect(() => {
-    console.log("userData:", userData);
+    // console.log("userData:", userData);
   }, []);
 
   return (

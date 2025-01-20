@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Alert from "./Alert";
 import Success from "./Success";
 
-const BookModal = ({ modalData, resetData }) => {
+const BookModal = ({ modalData, resetData, username }) => {
   const { idx, bookTitle, bookAuthor, bookCover, bookDescription, bookKey } =
     modalData;
   const { userData } = useAuth();
@@ -23,11 +23,11 @@ const BookModal = ({ modalData, resetData }) => {
     setHasError(true); // Handle if there's an error loading the image
   };
 
-  const handleSuggest = async (user) => {
+  const handleSuggest = async () => {
     setShowSuggestBtn(false);
     try {
       const suggestionReply = await suggestBook(
-        user,
+        username,
         bookTitle,
         bookAuthor,
         bookCover,

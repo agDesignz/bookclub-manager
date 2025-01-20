@@ -35,9 +35,6 @@ const BookSearch = () => {
     setLoading(false);
   };
 
-  // const getBook = (idx, bookTitle, bookAuthor, bookCover) =>
-  //   console.log(`Got book ${idx}, ${bookTitle}, by ${bookAuthor}`);
-
   useEffect(() => {
     scrollToTop();
   }, [page]);
@@ -79,15 +76,15 @@ const BookSearch = () => {
               </div>
             </form>
           </div>
-          <div className="flex flex-col gap-8 basis-full">
+          <div className="flex flex-col gap-3 basis-full">
             {loading ? (
               <span className="loading loading-bars loading-md m-auto"></span>
             ) : searchResults.books ? (
               <SearchResults
                 searchResults={searchResults}
-                // getBook={getBook}
                 handlePageChange={handlePageChange}
                 page={page}
+                clearInput={clearInput}
               />
             ) : (
               <h2 className="text-3xl">Find your next read...</h2>

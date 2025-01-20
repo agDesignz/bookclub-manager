@@ -21,6 +21,12 @@ const Header = () => {
             Bookclub App
           </Link>
         </div>
+        {isLoggedIn && (
+          <div>
+            <p className="text-xs">{userData.username}</p>
+          </div>
+        )}
+
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
             <div
