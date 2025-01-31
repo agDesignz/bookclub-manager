@@ -22,11 +22,23 @@ This is a pet project for a local book club I joined. The idea is to allow users
 
 This app is still in the development phase, as of Jan 31, 2025. In theory, one could clone the repo and set it up locally in docker.
 
+## Design
+
+### Fully Responsive
+
+![alt text](./readme-assets/image.png)
+
+### Cover Images Included
+
+![alt text](./readme-assets/image-3.png)
+
+### Easy-to-read dashboard
+
+![alt text](./readme-assets/image-1.png)
+
 ## Contact me:
 
 email: [alexgeorgegeer@gmail.com](alexgeorgegeer@gmail.com)
-
-Github: [agDesignz](https://github.com/agDesignz)
 
 ## License
 
