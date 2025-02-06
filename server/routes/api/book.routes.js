@@ -1,15 +1,17 @@
-const router = require("express").Router();
+// const router from "express").Router();
+import { Router } from "express";
+const router = Router();
 
-const {
+import {
   suggestBook,
   getAllBooks,
   deleteBook,
-} = require("../../controllers/book.controller");
+} from "../../controllers/book.controller.js";
 
-const { protect, admin } = require("../../middleware/authMiddleware");
+import { protect, admin } from "../../middleware/authMiddleware.js";
 
 router.get("/", protect, getAllBooks);
 router.post("/", protect, suggestBook);
 router.delete("/:id", protect, deleteBook);
 
-module.exports = router;
+export default router;

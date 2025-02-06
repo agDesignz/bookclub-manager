@@ -1,6 +1,6 @@
-const { Book, User } = require("../models");
+import { Book, User } from "../models/index.js";
 
-const asyncHandler = require("../middleware/asyncHandler");
+import asyncHandler from "../middleware/asyncHandler.js";
 
 // @desc Fetch all books
 // @route GET /api/book
@@ -75,4 +75,4 @@ const deleteBook = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { suggestBook, getAllBooks, deleteBook };
+export { suggestBook, getAllBooks, deleteBook };

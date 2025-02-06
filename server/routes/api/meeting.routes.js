@@ -1,14 +1,15 @@
-const router = require("express").Router();
+import { Router } from "express";
+const router = Router();
 
-const {
+import {
   getAllMeets,
   getNextMeet,
   createMeeting,
   updateMeeting,
   deleteMeeting,
-} = require("../../controllers/meeting.controller");
+} from "../../controllers/meeting.controller.js";
 
-const { protect, admin } = require("../../middleware/authMiddleware");
+import { protect, admin } from "../../middleware/authMiddleware.js";
 
 // Extensions of /api/next
 router.get("/", protect, getAllMeets);
@@ -17,4 +18,4 @@ router.put("/", protect, admin, updateMeeting);
 router.delete("/", protect, admin, deleteMeeting);
 router.get("/latest", protect, getNextMeet);
 
-module.exports = router;
+export default router;

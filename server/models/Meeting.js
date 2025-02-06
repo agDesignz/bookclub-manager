@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+import { Model, DataTypes } from "sequelize";
+import sequelize from "../config/connection.js";
 
 class Meeting extends Model {}
 
@@ -38,4 +38,4 @@ Meeting.init(
   }
 );
 
-module.exports = Meeting;
+export default Meeting;

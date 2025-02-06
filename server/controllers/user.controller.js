@@ -1,13 +1,24 @@
-const User = require("../models/User");
-const asyncHandler = require("../middleware/asyncHandler");
-const generateToken = require("../utils/generateToken");
-const jwt = require("jsonwebtoken");
+import { createChallenge, verifySolution } from "altcha-lib";
+import User from "../models/User.js";
+import asyncHandler from "../middleware/asyncHandler.js";
+import generateToken from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+const hmacKey = process.env.ALTCHA_HMAC_KEY;
 
 // @desc Register User
 // @route POST /api/user
 // @access Public
 const userRegister = asyncHandler(async (req, res) => {
-  const { email, username, password } = req.body;
+  const { email, username, password, altchaPayload } = req.body;
+
+  // Verify the Altcha challenge
+  const isHuman = await verifySolution(altchaPayload, hmacKey);
+
+  if (!isHuman) {
+    res.status(400);
+    throw new Error("CAPTCHA verification failed");
+  }
 
   const [user, created] = await User.findOrCreate({
     where: { email: email },
@@ -227,7 +238,7 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
+export {
   userLogin,
   userRegister,
   logoutUser,

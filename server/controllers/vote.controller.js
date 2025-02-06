@@ -1,5 +1,5 @@
-const Vote = require("../models/Vote");
-const asyncHandler = require("../middleware/asyncHandler");
+import Vote from "../models/Vote.js";
+import asyncHandler from "../middleware/asyncHandler.js";
 
 // @desc CREATE Vote
 // @route POST /api/vote/
@@ -44,4 +44,4 @@ const deleteVote = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createVote, deleteVote };
+export { createVote, deleteVote };

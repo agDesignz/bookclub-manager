@@ -1,5 +1,5 @@
-const { Meeting, Book } = require("../models");
-const asyncHandler = require("../middleware/asyncHandler");
+import { Meeting, Book } from "../models/index.js";
+import asyncHandler from "../middleware/asyncHandler.js";
 
 // @desc Fetch all meetings
 // @route GET /api/meeting
@@ -117,7 +117,7 @@ const deleteMeeting = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
+export {
   getAllMeets,
   getNextMeet,
   createMeeting,

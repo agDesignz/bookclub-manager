@@ -1,11 +1,10 @@
-const dotenv = require("dotenv");
-dotenv.config();
+import "dotenv/config";
 
-module.exports = {
-  port: process.env.PORT,
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  password: process.env.PGPASSWORD,
-  db: process.env.PGDATABASE,
-  pgPort: process.env.PGPORT
-}
+const port = process.env.PORT;
+const user = process.env.PGUSER;
+const host = process.env.PGHOST;
+const password = process.env.PGPASSWORD;
+const db = process.env.PGDATABASE;
+const pgPort = process.env.PGPORT;
+
+export { port, user, host, password, db, pgPort };

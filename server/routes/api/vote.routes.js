@@ -1,10 +1,11 @@
-const router = require("express").Router();
+import { Router } from "express";
+const router = Router();
 
-const { createVote, deleteVote } = require("../../controllers/vote.controller");
+import { createVote, deleteVote } from "../../controllers/vote.controller.js";
 
-const { protect, admin } = require("../../middleware/authMiddleware");
+import { protect, admin } from "../../middleware/authMiddleware.js";
 
 router.post("/", protect, createVote);
 router.delete("/", protect, deleteVote);
 
-module.exports = router;
+export default router;

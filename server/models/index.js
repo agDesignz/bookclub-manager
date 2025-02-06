@@ -1,7 +1,7 @@
-const User = require("./User");
-const Book = require("./Book");
-const Meeting = require("./Meeting");
-const Vote = require("./Vote");
+import User from "./User.js";
+import Book from "./Book.js";
+import Meeting from "./Meeting.js";
+import Vote from "./Vote.js";
 
 // User can have many books
 User.hasMany(Book, {
@@ -33,4 +33,4 @@ Meeting.belongsTo(Book, {
   foreignKey: "book_id", // Explicitly define the foreign key
 });
 
-module.exports = { User, Book, Meeting, Vote };
+export { User, Book, Meeting, Vote };

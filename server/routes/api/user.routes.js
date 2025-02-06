@@ -1,6 +1,7 @@
-const router = require("express").Router();
+import { Router } from "express";
+const router = Router();
 
-const {
+import {
   userLogin,
   userRegister,
   logoutUser,
@@ -11,9 +12,9 @@ const {
   getUserById,
   deleteUser,
   updateUser,
-} = require("../../controllers/user.controller");
+} from "../../controllers/user.controller.js";
 
-const { protect, admin } = require("../../middleware/authMiddleware");
+import { protect, admin } from "../../middleware/authMiddleware.js";
 
 router.get("/auth", authCheck);
 router.post("/", userRegister);
@@ -27,4 +28,4 @@ router.get("/:id", protect, admin, getUserById);
 router.delete("/:id", protect, admin, deleteUser);
 router.put("/:id", protect, admin, updateUser);
 
-module.exports = router;
+export default router;
