@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "backend of bookclub_app",
   "type": "module",
+  "main": "server.js",
   "devDependencies": {},
   "scripts": {
     "dev": "NODE_ENV=development nodemon",
@@ -11,6 +12,7 @@
   "author": "alex geer",
   "license": "MIT",
   "dependencies": {
+    "altcha": "^1.1.1",
     "altcha-lib": "^1.2.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
