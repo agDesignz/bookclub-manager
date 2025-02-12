@@ -13,7 +13,6 @@ const getLatestMeet = async () => {
       }
       const latestMeetData = updateObjectDate(response);
       latestMeetData.formattedTime = formatTime(latestMeetData.time);
-      // console.log("getLatestMeet", latestMeetData);
       return latestMeetData;
     }
   } catch (error) {

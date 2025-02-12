@@ -10,6 +10,7 @@ const MeetingBox = ({ meeting, isAdmin = false }) => {
         </h2>
         <h4 className="text-md sm:text-lg">{meeting?.book?.author}</h4>
       </div>
+
       <DescriptionModal
         bookCover={meeting?.book?.cover}
         bookTitle={meeting?.book?.title}

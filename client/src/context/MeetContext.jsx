@@ -77,6 +77,7 @@ export const MeetContextProvider = ({ children }) => {
       value={{
         meetingLoading,
         setMeetingLoading,
+        fetchLatestMeet,
         meeting,
         newMeeting,
         editMeeting,

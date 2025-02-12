@@ -1,17 +1,21 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useMeetingContext } from "../context/MeetContext";
-import DescriptionModal from "./DescriptionModal";
 import MeetingBox from "./MeetingBox";
+import { useEffect } from "react";
 
 const NextMeeting = () => {
   const { userData } = useAuth();
-  const { meetingLoading, meeting } = useMeetingContext();
+  const { fetchLatestMeet, meetingLoading, meeting } = useMeetingContext();
+
+  useEffect(() => {
+    fetchLatestMeet();
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-full border-slate-200 md:border rounded-lg md:p-8">
       {meetingLoading ? (
-        <h2>Still Loading</h2>
+        <span className="loading loading-bars loading-md"></span>
       ) : meeting ? (
         <div className="flex flex-col gap-4 w-full">
           <h2 className="text-lg sm:text-xl">Next Meeting</h2>
