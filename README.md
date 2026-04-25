@@ -38,15 +38,15 @@ Running a full containerized stack on a VPS requires ongoing maintenance. The re
 
 ### Fully Responsive
 
-![alt text](./readme-assets/image.png)
+![Responsive mobile view search page](./readme-assets/image.png)
 
 ### Cover Images Included
 
-![alt text](./readme-assets/image-3.png)
+![Responsive full-screen view search result modal](./readme-assets/image-3.png)
 
 ### Easy-to-read dashboard
 
-![alt text](./readme-assets/image-1.png)
+![Responsive full-screen view dashboard](./readme-assets/image-1.png)
 
 ---
 
